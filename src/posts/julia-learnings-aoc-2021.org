@@ -1,0 +1,262 @@
+#+title: 📚 7 Things I learnt about Julia during Advent of Code
+#+date: 2022-01-12
+#+tags: computer science,julia,learnings,advent of code,linear algebra
+
+* Introduction
+[[file:/blog/aoc-2021-day-1][In a previous post]] I was detailing my learnings from Day 1 of Advent of Code 2021.
+As expected, I didn't have the time and energy to write a blog post for every single puzzle
+(and I actually didn't even finish all of them).
+
+Instead, I am combining here the 7 most interesting things I learnt while [[https://github.com/mewfree/advent-of-meow-2021][attempting to solve Advent of Code 2021]].
+
+* ~vec~
+Converts an array or matrix to a vector (a 1-dimension array). Useful when parsing files with ~readdlm~ (explained in previous article) as the result is a matrix and I would often want a simple ~Vector~.
+
+#+begin_src julia-vterm :exports both :results code
+julia> vec([1 2 3; 4 5 6])
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+6-element Vector{Int64}:
+ 1
+ 4
+ 2
+ 5
+ 3
+ 6
+#+end_src
+
+* ~transpose~
+"Transposes" a matrix, essentially meaning swapping the matrix's dimensions.
+#+begin_src julia-vterm :exports both :results value code
+julia> [1 2 3; 4 5 6; 7 8 9]
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3×3 Matrix{Int64}:
+ 1  2  3
+ 4  5  6
+ 7  8  9
+#+end_src
+
+#+begin_src julia-vterm :exports both :results value code
+julia> transpose([1 2 3; 4 5 6; 7 8 9])
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3×3 transpose(::Matrix{Int64}) with eltype Int64:
+ 1  4  7
+ 2  5  8
+ 3  6  9
+#+end_src
+
+Most useful when combined with ~hcat(n...)~ to convert an array of array to a matrix:
+#+begin_src julia-vterm :exports both :results value code :session hcat
+julia> n = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3-element Vector{Vector{Int64}}:
+ [1, 2, 3]
+ [4, 5, 6]
+ [7, 8, 9]
+#+end_src
+
+#+begin_src julia-vterm :exports both :results value code :session hcat
+julia> nm = hcat(n...)
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3×3 Matrix{Int64}:
+ 1  4  7
+ 2  5  8
+ 3  6  9
+#+end_src
+
+#+begin_src julia-vterm :exports both :results value code :session hcat
+julia> transpose(nm)
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3×3 transpose(::Matrix{Int64}) with eltype Int64:
+ 1  2  3
+ 4  5  6
+ 7  8  9
+#+end_src
+
+Unless there is a better way to go directly from array of array to matrix? If so, please [[file:/about][contact me]]!
+
+See also [[https://docs.julialang.org/en/v1/base/arrays/#Base.permutedims][~permutedims~]].
+
+* Sets
+Array-like structure that only holds unique elements! More efficient than pushing everything to an array and calling [[https://docs.julialang.org/en/v1/base/collections/#Base.unique][~unique~]] after the fact.
+
+Create an empty set:
+#+begin_src julia-vterm :exports both :results code
+julia> Set()
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+Set{Any}()
+#+end_src
+
+Create a Set from an array:
+#+begin_src julia-vterm :exports both :results code
+julia> Set([1, 2, 2, 3, 3, 3])
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+Set{Int64} with 3 elements:
+  2
+  3
+  1
+#+end_src
+
+* ~broadcast~
+Super powerful function that applies the same function to all elements of an iterable.
+Basically the long-form of the dot notation.
+
+#+begin_src julia-vterm :exports both :results code
+julia> broadcast(+, [1, 2, 3], [1, 1, 1])
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3-element Vector{Int64}:
+ 2
+ 3
+ 4
+#+end_src
+
+Same as:
+#+begin_src julia-vterm :exports both :results code
+julia> [1, 2, 3] .+ [1, 1, 1]
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3-element Vector{Int64}:
+ 2
+ 3
+ 4
+#+end_src
+
+* List comprehensions
+Similar to list comprehensions in other languages like Python!
+
+#+begin_src julia-vterm :exports both :results code
+julia> [x*2 for x = 1:5]
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+5-element Vector{Int64}:
+  2
+  4
+  6
+  8
+ 10
+#+end_src
+
+The above is similar to a ~map~:
+#+begin_src julia-vterm :exports both :results code
+julia> map(x -> x*2, 1:5)
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+5-element Vector{Int64}:
+  2
+  4
+  6
+  8
+ 10
+#+end_src
+
+But it's very easy to use multiple declarations at the same time:
+#+begin_src julia-vterm :exports both :results code
+julia> [(i, j) for i = 1:5, j = [true, false]]
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+5×2 Matrix{Tuple{Int64, Bool}}:
+ (1, 1)  (1, 0)
+ (2, 1)  (2, 0)
+ (3, 1)  (3, 0)
+ (4, 1)  (4, 0)
+ (5, 1)  (5, 0)
+#+end_src
+
+* Cartesian Indices
+Super useful when dealing with coordinates in any dimensions.
+The range between two ~CartesianIndex~ includes every single coordinates between the two.
+#+begin_src julia-vterm :exports both :results code
+julia> CartesianIndex(1, 1):CartesianIndex(3, 3)
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3×3 CartesianIndices{2, Tuple{UnitRange{Int64}, UnitRange{Int64}}}:
+ CartesianIndex(1, 1)  CartesianIndex(1, 2)  CartesianIndex(1, 3)
+ CartesianIndex(2, 1)  CartesianIndex(2, 2)  CartesianIndex(2, 3)
+ CartesianIndex(3, 1)  CartesianIndex(3, 2)  CartesianIndex(3, 3)
+#+end_src
+
+You can also get all the coordinates of a plane:
+#+begin_src julia-vterm :exports both :results code
+julia> CartesianIndices([1 2; 3 4; 5 6])
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+3×2 CartesianIndices{2, Tuple{Base.OneTo{Int64}, Base.OneTo{Int64}}}:
+ CartesianIndex(1, 1)  CartesianIndex(1, 2)
+ CartesianIndex(2, 1)  CartesianIndex(2, 2)
+ CartesianIndex(3, 1)  CartesianIndex(3, 2)
+#+end_src
+
+* ~circshift~
+Rotates the data in an array by ~step~:
+#+begin_src julia-vterm :exports both :results code
+julia> circshift([1, 2, 3, 4, 5], 1)
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+5-element Vector{Int64}:
+ 5
+ 1
+ 2
+ 3
+ 4
+#+end_src
+
+It can go backwards too:
+#+begin_src julia-vterm :exports both :results code
+julia> circshift([1, 2, 3, 4, 5], -1)
+#+end_src
+
+#+RESULTS:
+#+begin_src julia-vterm
+5-element Vector{Int64}:
+ 2
+ 3
+ 4
+ 5
+ 1
+#+end_src
+
+* Conclusion
+Advent of Code is an amazing way to learn a new language!
+Dealing with Linear Algebra in Julia is a breeze and I wish to learn even more about it in the future.
+
+If you have any thoughts about this article do not hesitate to [[file:/about][contact me]].

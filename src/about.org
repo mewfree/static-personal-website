@@ -1,0 +1,52 @@
+#+title: About
+
+* About me
+** Contact
+- Email: =damien.gonot@gmail.com=
+- GitHub: [[https://github.com/mewfree][@mewfree]]
+- Twitter: [[https://twitter.com/mewfree][@mewfree]]
+- LinkedIn: [[https://www.linkedin.com/in/damiengonot][linkedin.com/in/damiengonot]]
+
+** Personal stack
+*** Hardware
+- 💻 MacBook Pro 14-inch
+- 📱 OnePlus 9 Pro
+- 📖 iPad Mini
+- ⌨️  HHKB Pro 2
+
+*** Software
+- ✍️ GNU Emacs (with evil-mode)
+- 🧠 org-mode (this page is built using org-mode!)
+- 🧑‍🌾 tmux
+- ⚙️ zsh
+
+** Random
+#+begin_src julia-vterm :exports results
+using UnicodePlots
+lineplot(sin, 0:0.5:10, width = 50, canvas = DotCanvas)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+           ┌──────────────────────────────────────────────────┐
+         1 │      .''..                          :'':         │ sin(x)
+           │    :'    '.                        :    '.       │
+           │   :       '.                     .:      '.      │
+           │  :         :                     :        '.     │
+           │  :          :                   :          ':    │
+           │ :           '.                 :            '.   │
+           │.'            ':                :             :   │
+   f(x)    │:..............:...............:...............:..│
+           │                :             .'               :  │
+           │                 :           .:                 : │
+           │                 :           :                  '.│
+           │                  :         :                    :│
+           │                   :       :                      │
+           │                   ':     :                       │
+        -1 │                     '...:                        │
+           └──────────────────────────────────────────────────┘
+            0                                               10
+                                     x
+#+end_example
+
+** λ

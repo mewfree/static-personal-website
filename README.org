@@ -1,0 +1,13 @@
+#+title: static-personal-website
+
+* Introduction
+A tiny script to generate my personal website
+
+* Tools required
+- julia 1.7
+- pandoc
+- tailwindcss
+- html-minifier
+
+* How?
+Run ~julia build.jl~

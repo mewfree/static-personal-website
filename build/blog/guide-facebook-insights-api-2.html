@@ -1,0 +1,275 @@
+<!doctype html><html lang="en"><head><title>Guide to Facebook Insights API (Part 2) - Damien Gonot</title><link href="/output.css" rel="stylesheet"><link href="/highlight.css" rel="stylesheet"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Personal Website of Damien Gonot"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><header class="bg-indigo-600 text-center text-white p-8"><div class="text-4xl font-bold mb-4">Damien Gonot</div><div class="text-xl flex space-x-8 justify-center"><a href="/" class="hover:underline">Home</a> <a href="/blog" class="hover:underline">Blog</a> <a href="/about" class="hover:underline">About</a></div></header><div class="prose prose-indigo max-w-3xl mx-auto p-8"><h1 class="text-center">Guide to Facebook Insights API (Part 2)</h1><div class="text-center">written on 2020-01-21</div><h2 id="introduction">Introduction</h2><p>Welcome to the first article published in 2020! Friendly reminder that this is the second part of a guide around how to use Facebook Insights API with Python so if you haven’t seen <a href="/blog/guide-facebook-insights-api">Guide to Facebook Insights API</a> (Part 1) yet I would suggest to read it first.</p><p>Some of the more advanced features of Facebook Insights API weren’t covered in Part 1 so here is the rest!</p><h2 id="advanced-queries-to-the-facebook-insights-api">Advanced queries to the Facebook Insights API</h2><h3 id="level">Level</h3><p>In the <a href="/blog/guide-facebook-insights-api">previous article</a>, we saw how to get results for an ad account, campaign, ad set, etc… But the results were only for the total sum of that entity. What if you want to access your entire account results, but detailed by campaign or even ad set?</p><p>This is how “level” comes into consideration.</p><p>Here is a sample Python code for account results at the campaign level that should be familiar from <a href="/blog/guide-facebook-insights-api">my previous article</a>.</p><div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> facebook_business.api <span class="im">import</span> FacebookAdsApi</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> facebook_business.adobjects.adaccount <span class="im">import</span> AdAccount</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>app_id <span class="op">=</span> <span class="st">&#39;REPLACE_BY_YOUR_APP_ID&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>app_secret <span class="op">=</span> <span class="st">&#39;REPLACE_BY_YOUR_APP_SECRET&#39;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>access_token <span class="op">=</span> <span class="st">&#39;REPLACE_BY_YOUR_ACCESS_TOKEN&#39;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>FacebookAdsApi.init(app_id, app_secret, access_token)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;level&#39;</span>: <span class="st">&#39;campaign&#39;</span>, <span class="co"># &lt;== level mechanism</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;campaign_name&#39;</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;spend&#39;</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>insights <span class="op">=</span> AdAccount(<span class="st">&#39;act_****************&#39;</span>).get_insights(</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    fields <span class="op">=</span> fields,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(insights)</span></code></pre></div><p>Notice how I added <code>campaign_name</code> to the list of fields in order to differentiate each campaign.</p><p>Result:</p><div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_a&quot;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;9501.20&quot;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_b&quot;</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;22702.47&quot;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_c&quot;</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;11404.52&quot;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_d&quot;</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;8752.67&quot;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div><p>As you can see, the results don’t seem to be sorted in any way. Follow the next section to learn how to sort results.</p><h3 id="sorting">Sorting</h3><p>You might have noticed that Facebook results have usually no particular order. Here is how to specify a sort so the JSON result is already sorted when you get the result back from the API.</p><p>Here’s how to do it:</p><p>Add a <code>sort</code> param in your list of params. As it’s possible to sort by multiple fields, the parameter is an array of strings. The strings are constructed using <code>{field}_{direction}</code>, <code>field</code> being the field you want to sort by and <code>direction</code> being either <code>ascending</code> or <code>descending</code>.</p><p>Example: <code>spend_descending</code> to sort results by spend, from highest to lowest.</p><h4 id="sample-python-code">Sample Python code:</h4><div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(...)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;level&#39;</span>: <span class="st">&#39;campaign&#39;</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;sort&#39;</span>: [<span class="st">&#39;spend_descending&#39;</span>], <span class="co"># &lt;== sorting mechanism</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;campaign_name&#39;</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;spend&#39;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>insights <span class="op">=</span> AdAccount(<span class="st">&#39;act_****************&#39;</span>).get_insights(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    fields <span class="op">=</span> fields,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(insights)</span></code></pre></div><p>Result:</p><div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_b&quot;</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;22702.47&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_c&quot;</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;11404.52&quot;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_a&quot;</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;9501.20&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_d&quot;</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;8752.67&quot;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div><p>Results are now sorted by spend, in a descending order (from highest to lowest)!</p><h3 id="filtering">Filtering</h3><p>Filtering is constructed through a field (the field or column we’d like to filter on, for example <code>campaign.name</code> or <code>impressions</code>), an operator (for example <code>CONTAIN</code> or <code>STARTS_WITH</code> for string fields like entity names, or <code>GREATER_THAN</code> // <code>LESS_THAN</code> for number fields like impressions) and a value (what we want to filter against, for example “5000” to only get campaigns that have spent over $5,000).</p><p>They can be combined into one or multiple objects under the <code>filtering</code> parameter.</p><p>The exhaustive list of operators: * <code>EQUAL</code> * <code>NOT_EQUAL</code> * <code>GREATER_THAN</code> * <code>GREATER_THAN_OR_EQUAL</code> * <code>LESS_THAN</code> * <code>LESS_THAN_OR_EQUAL</code> * <code>IN_RANGE</code> * <code>NOT_IN_RANGE</code> * <code>CONTAIN</code> * <code>NOT_CONTAIN</code> * <code>IN</code> * <code>NOT_IN</code> * <code>STARTS_WITH</code> * <code>ANY</code> * <code>ALL</code> * <code>AFTER</code> * <code>BEFORE</code> * <code>NONE</code></p><p>Here are a few examples:</p><h4 id="filtering-by-spend">Filtering by spend</h4><div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(...)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;filtering&#39;</span>: [</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;field&#39;</span>: <span class="st">&#39;spend&#39;</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;operator&#39;</span>: <span class="st">&#39;GREATER_THAN&#39;</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;value&#39;</span>: <span class="dv">20000</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;level&#39;</span>: <span class="st">&#39;campaign&#39;</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>}<span class="st">&#39;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="er">fields = [</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="er">    &#39;campaign_name&#39;,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="er">    &#39;spend&#39;,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="er">]</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="er">insights = AdAccount(&#39;act_****************&#39;).get_insights(</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="er">    params = params,</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="er">    fields = fields,</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="er">)</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="er">print(insights)</span></span></code></pre></div><p>Result:</p><div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_b&quot;</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;22702.47&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div><p>^ Only fetched the campaigns with &gt;$20,000 spend</p><h4 id="filtering-by-campaign-name">Filtering by campaign name</h4><div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(...)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;filtering&#39;</span>: [</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;field&#39;</span>: <span class="st">&#39;campaign.name&#39;</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;operator&#39;</span>: <span class="st">&#39;CONTAIN&#39;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;value&#39;</span>: <span class="st">&#39;_c&#39;</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;level&#39;</span>: <span class="st">&#39;campaign&#39;</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}<span class="st">&#39;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="er">fields = [</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="er">    &#39;campaign_name&#39;,</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="er">    &#39;spend&#39;,</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="er">]</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="er">insights = AdAccount(&#39;act_****************&#39;).get_insights(</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="er">    params = params,</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="er">    fields = fields,</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="er">)</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="er">print(insights)</span></span></code></pre></div><p>Result:</p><div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;campaign_name&quot;</span>: <span class="st">&quot;campaign_c&quot;</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-13&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;11404.52&quot;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div><p>^ Only fetched campaign with <code>_c</code> in the name</p><p>Note that your intuition might be to use <code>campaign_name</code> as a field but if you do so you’ll get an error back from Facebook: <code>Filter campaign_name is not valid any more, please use campaign.name instead</code>.</p><h3 id="time-increment-monthly-or-daily-data">Time increment (monthly or daily data)</h3><p>By default, the Facebook Insights API will give the result for the total of the date range (<code>all_days</code>).</p><p>If you want to have the data for every month or every day (monthly or daily data), you have to use the <code>time_increment</code> parameter.</p><p><code>time_increment</code> can either be: * an integer (if you want data by groups of 1, 2, 3… days, not sure why you would need to do groups of more than 1 day outside of weekly/monthly data, but please <a href="/about">contact me</a> if you do so that I can learn about your use case) * <code>monthly</code> * <code>all_days</code> (but that’s the default)</p><h4 id="daily-data-sample">Daily data sample:</h4><div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(...)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;time_increment&#39;</span>: <span class="dv">1</span>, <span class="co"># &lt;== daily data mechanism</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;date_preset&#39;</span>: <span class="st">&#39;last_3d&#39;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;spend&#39;</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>insights <span class="op">=</span> AdAccount(<span class="st">&#39;act_****************&#39;</span>).get_insights(</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    fields <span class="op">=</span> fields,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(insights)</span></code></pre></div><p>Results:</p><div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-09&quot;</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-09&quot;</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;8000.00&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-10&quot;</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-10&quot;</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;8200.00&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-11&quot;</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;10000.00&quot;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div><h4 id="monthly-data-sample">Monthly data sample:</h4><div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(...)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;time_increment&#39;</span>: <span class="st">&#39;monthly&#39;</span>, <span class="co"># &lt;== monthly data</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;date_preset&#39;</span>: <span class="st">&#39;last_quarter&#39;</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;spend&#39;</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>insights <span class="op">=</span> AdAccount(<span class="st">&#39;act_****************&#39;</span>).get_insights(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    fields <span class="op">=</span> fields,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(insights)</span></code></pre></div><p>Result:</p><div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-10-01&quot;</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2019-10-31&quot;</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;100000.00&quot;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-11-01&quot;</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2019-11-30&quot;</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;125000.00&quot;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2019-12-01&quot;</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2019-12-31&quot;</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;spend&quot;</span>: <span class="st">&quot;150000.00&quot;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div><h3 id="breakdowns">Breakdowns</h3><p>All of this is fine and dandy but what if you want to break down your results by something like publisher platform (Facebook/Instagram/Messenger…), age, country and more?</p><p>Once again, one simply needs to add <code>breakdowns</code> as a param with a list of breakdown.</p><p>Here is the exhaustive list of available breakdowns: * <code>ad_format_asset</code> * <code>age</code> * <code>body_asset</code> * <code>call_to_action_asset</code> * <code>country</code> * <code>description_asset</code> * <code>gender</code> * <code>image_asset</code> * <code>impression_device</code> * <code>link_url_asset</code> * <code>product_id</code> * <code>region</code> * <code>title_asset</code> * <code>video_asset</code> * <code>dma</code> * <code>frequency_value</code> * <code>hourly_stats_aggregated_by_advertiser_time_zone</code> * <code>hourly_stats_aggregated_by_audience_time_zone</code> * <code>place_page_id</code> * <code>publisher_platform</code> * <code>platform_position</code> * <code>device_platform</code></p><p>Only some breakdowns can be combined. To know more about it, please refer to <a href="https://developers.facebook.com/docs/marketing-api/insights/breakdowns#combiningbreakdowns">Facebook’s official documentation about combining breakdowns</a>.</p><h4 id="age-breakdown-sample">Age breakdown sample:</h4><div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(...)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;breakdowns&#39;</span>: [<span class="st">&#39;age&#39;</span>], <span class="co"># &lt;== breakdown mechanism</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;date_preset&#39;</span>: <span class="st">&#39;last_7d&#39;</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;impressions&#39;</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>insights <span class="op">=</span> AdAccount(<span class="st">&#39;act_****************&#39;</span>).get_insights(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    fields <span class="op">=</span> fields,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(insights)</span></code></pre></div><p>Result:</p><div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;age&quot;</span>: <span class="st">&quot;18-24&quot;</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;78505&quot;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;age&quot;</span>: <span class="st">&quot;25-34&quot;</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;82575&quot;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;age&quot;</span>: <span class="st">&quot;35-44&quot;</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;32155&quot;</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;age&quot;</span>: <span class="st">&quot;45-54&quot;</span>,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;18055&quot;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;age&quot;</span>: <span class="st">&quot;55-64&quot;</span>,</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;10316&quot;</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;age&quot;</span>: <span class="st">&quot;65+&quot;</span>,</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;6243&quot;</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div><h4 id="publisher-platform-breakdown-sample">Publisher platform breakdown sample:</h4><div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(...)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;breakdowns&#39;</span>: [<span class="st">&#39;publisher_platform&#39;</span>], <span class="co"># &lt;== breakdown mechanism</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;date_preset&#39;</span>: <span class="st">&#39;last_7d&#39;</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;impressions&#39;</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>insights <span class="op">=</span> AdAccount(<span class="st">&#39;act_****************&#39;</span>).get_insights(</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    fields <span class="op">=</span> fields,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(insights)</span></code></pre></div><p>Result:</p><div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;3458&quot;</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;publisher_platform&quot;</span>: <span class="st">&quot;audience_network&quot;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;401304&quot;</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;publisher_platform&quot;</span>: <span class="st">&quot;facebook&quot;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;104504&quot;</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;publisher_platform&quot;</span>: <span class="st">&quot;instagram&quot;</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>}, <span class="op">&lt;</span>AdsInsights<span class="op">&gt;</span> {</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_start&quot;</span>: <span class="st">&quot;2020-01-14&quot;</span>,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;date_stop&quot;</span>: <span class="st">&quot;2020-01-20&quot;</span>,</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;impressions&quot;</span>: <span class="st">&quot;154&quot;</span>,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;publisher_platform&quot;</span>: <span class="st">&quot;messenger&quot;</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div><h2 id="conclusion">Conclusion</h2><p>This is it for today, we’ve covered most of what’s available in Facebook Insights API. Thank you for following along!</p><p>Refer to <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/insights">Facebook’s official documentation about Insights</a> for full coverage of all options available.</p><p>Do not hesitate to <a href="/about">contact me</a> with any questions about the article.</p></div><script src="/highlight.js"></script><script>hljs.highlightAll();</script></body></html>
