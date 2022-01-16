@@ -33,7 +33,7 @@ for filename in readdir("src/posts")
     post = Dict("slug" => slug, "title" => title, "date" => date, "tags" => tags)
     push!(posts, post)
 
-    template = read("src/post-template.html", String)
+    template = read("src/templates/post.html", String)
     templated_string = replace(template, "{TITLE}" => title, "{DATE}" => date, "{CONTENT}" => content)
     output = replace(header, "{TITLE}" => title * " - Damien Gonot") * templated_string * footer
     open("build/blog/$slug.html", "w") do io
@@ -43,8 +43,8 @@ end
 
 # List of blog posts
 posts = sort(posts, by = p -> Date(p["date"]), rev = true)
-post_link_template = read("src/post-link-template.html", String)
-posts_template = read("src/posts-template.html", String)
+post_link_template = read("src/templates/post-link.html", String)
+posts_template = read("src/templates/posts.html", String)
 posts_list = [replace(post_link_template, "{TITLE}" => post["title"], "{SLUG}" => post["slug"], "{DATE}" => post["date"]) for post = posts]
 content = replace(posts_template, "{CONTENT}" => join(posts_list))
 output = replace(header, "{TITLE}" => "Blog Posts - Damien Gonot") * content * footer
