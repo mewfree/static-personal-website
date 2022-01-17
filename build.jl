@@ -82,5 +82,5 @@ end
 # Wrap it up
 println("Website has been generated!")
 run(`cp -a src/public/. build/`)
-run(`./tailwindcss -i src/input.css -o build/output.css --minify`)
-run(`html-minifier --input-dir ./build --output-dir ./build --collapse-whitespace --file-ext html`)
+run(`./tailwindcss -i src/input.css -o build/main.css --minify`)
+run(`html-minifier --input-dir ./build --output-dir ./build --collapse-whitespace --minify-js true --file-ext html`)

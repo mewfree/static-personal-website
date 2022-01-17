@@ -1,8 +1,9 @@
 module.exports = {
   content: ["./src/**/*.html"],
+  darkMode: "class",
   theme: {
     extend: {
-      typography: (theme) => ({
+      typography: {
         DEFAULT: {
           css: {
             pre: false,
@@ -21,21 +22,7 @@ module.exports = {
             },
           },
         },
-        // dark: {
-        //   css: {
-        //     color: "white",
-        //     "h1,h2,h3,h4,h5,h6": {
-        //       color: "white",
-        //     },
-        //     strong: {
-        //       color: "white",
-        //     },
-        //     a: {
-        //       color: theme("colors.indigo.400"),
-        //     },
-        //   },
-        // },
-      }),
+      },
     },
   },
   plugins: [
