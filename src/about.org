@@ -1,6 +1,8 @@
 #+title: About
 
 * About me
+[[file:damiengonot_resume.pdf][💾 Download my résumé as a PDF]]
+
 ** Contact
 - Email: =damien.gonot@gmail.com=
 - GitHub: [[https://github.com/mewfree][@mewfree]]
