@@ -1,5 +1,9 @@
 using Dates
 
+# Clean up first
+isdir("build") && rm("build", recursive = true)
+mkpath("build/blog")
+
 header = read("src/header.html", String)
 footer = read("src/footer.html", String)
 
