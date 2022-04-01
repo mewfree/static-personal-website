@@ -34,7 +34,7 @@ Replace columns D & E with the real text you wish to send.
 # Drafting Emails
 You can read more about setting up a Google Apps Script project from a spreadsheet in the "How to Access Google Apps Scripts?" section of my previous article [How to Automatically Pull Facebook Ads Data in Google Spreadsheet?](/blog/pull-facebook-ads-google-spreadsheet).
 
-In the __Tools > Script Editor__ section, copy & paste:
+In the __Extensions > Apps Script__ section, copy & paste:
 ```javascript
 function run() {
   var sheet = SpreadsheetApp.getActiveSheet();

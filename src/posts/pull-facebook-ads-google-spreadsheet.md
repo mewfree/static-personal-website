@@ -20,7 +20,7 @@ You should see an empty Google Spreadsheet, as below.
 
 ![Empty Sheet](/images/empty_sheet.png)
 
-Next, click on: __Tool > Script Editor__
+Next, click on: __Extensions > Apps Script__
 
 ![Script Editor Menu](/images/script_editor_menu.png)
 
