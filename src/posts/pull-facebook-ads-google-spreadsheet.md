@@ -28,7 +28,9 @@ A new browser window should have opened showing Google Apps Script's IDE (code e
 
 ![Empty Script](/images/empty_script.png)
 
-Note that Google Apps Scripts does not support ES6 but older versions of JavaScript only.
+~~Note that Google Apps Scripts does not support ES6 but older versions of JavaScript only.~~
+
+Edit: With Google's introduction of the V8 runtime for Google Apps Scripts, it is [now possible to use modern ECMAScript syntax](https://developers.google.com/apps-script/guides/v8-runtime#modern_ecmascript_syntax).
 
 # Discovering Google Apps Script
 ## Hello, World! in Google Apps Script
