@@ -4,10 +4,17 @@
 A tiny script to generate my personal website
 
 * Tools required
-- julia 1.7
-- pandoc
-- tailwindcss
-- html-minifier
+- =julia 1.7=
+- =pandoc=
+- =tailwindcss=
+- =html-minifier=
 
-* How?
-Run ~julia build.jl~
+* Build
+#+begin_src bash :results none
+julia build.jl
+#+end_src
+
+* Development server
+#+begin_src bash :results none
+netlify dev
+#+end_src
