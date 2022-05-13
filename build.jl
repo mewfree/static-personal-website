@@ -1,7 +1,7 @@
 using Dates
 
 # Clean up first
-isdir("build") && rm("build", recursive = true)
+isdir("build") && rm("build", recursive=true)
 mkpath("build/blog")
 
 header = read("src/header.html", String)
@@ -24,7 +24,7 @@ for filename in readdir("src/posts")
         yaml = match(r"---\n((.|\n)+?)---", data).captures[1]
         yaml = replace(yaml, "[" => "", "]" => "", "\"" => "")
         metas = split(chomp(yaml), "\n")
-        metas = split.(metas, ": ", limit = 2)
+        metas = split.(metas, ": ", limit=2)
         metadata = Dict(meta[1] => meta[2] for meta = metas)
         title = metadata["title"]
         date = metadata["date"]
@@ -47,7 +47,7 @@ for filename in readdir("src/posts")
 end
 
 # List of blog posts
-posts = sort(posts, by = p -> Date(p["date"]), rev = true)
+posts = sort(posts, by=p -> Date(p["date"]), rev=true)
 post_link_template = read("src/templates/post-link.html", String)
 posts_template = read("src/templates/posts.html", String)
 posts_list = [replace(post_link_template, "{TITLE}" => post["title"], "{SLUG}" => post["slug"], "{DATE}" => post["date"]) for post = posts]
