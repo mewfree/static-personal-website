@@ -1,4 +1,7 @@
 using Dates
+using Suppressor
+
+print("Generating website...")
 
 # Clean up first
 isdir("build") && rm("build", recursive=true)
@@ -84,7 +87,10 @@ for route in routes
 end
 
 # Wrap it up
-println("Website has been generated!")
-run(`cp -a src/public/. build/`)
-run(`./tailwindcss -i src/input.css -o build/main.css --minify`)
-run(`html-minifier --input-dir ./build --output-dir ./build --collapse-whitespace --minify-js true --file-ext html`)
+@suppress begin
+    run(`cp -a src/public/. build/`)
+    run(`./tailwindcss -i src/input.css -o build/main.css --minify`)
+    run(`html-minifier --input-dir ./build --output-dir ./build --collapse-whitespace --minify-js true --file-ext html`)
+end
+
+println("\rWebsite has been generated!")
