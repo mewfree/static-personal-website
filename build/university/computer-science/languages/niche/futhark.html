@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><title>Futhark - Damien Gonot</title><link href="/main.css" rel="stylesheet"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Homepage  University  Computer Science  Programming Languages  Niche
+Languages  Futhark
+
+Futhark is a small programming language designed to be compiled to
+efficient parallel code It is a statically typed dataparallel and
+purely functional array language in the ML family and comes with a
+heavily ..."><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body class="bg-white dark:bg-black"><header class="bg-indigo-600 dark:bg-black text-center text-white p-8"><div class="text-4xl font-bold mb-4">Damien Gonot</div><div class="text-xl flex space-x-8 justify-center"><a href="/" class="hover:underline">Home</a> <a href="/blog" class="hover:underline">Blog</a> <a href="/university" class="hover:underline">University</a> <a href="/about" class="hover:underline">About</a> <a id="theme" class="text-2xl hover:cursor-pointer hover:dark" onclick="toggleTheme()">🌝</a></div><script>function loadCss(e){let t=document.createElement("link");t.setAttribute("rel","stylesheet"),t.setAttribute("href",`/highlight.${e}.css`),document.getElementsByTagName("head")[0].appendChild(t)}function toggleTheme(){"dark"===localStorage.theme||!("theme"in localStorage)&&window.matchMedia("(prefers-color-scheme: dark)").matches?(document.documentElement.classList.remove("dark"),document.getElementById("theme").innerText="🌝",loadCss(localStorage.theme="light")):(document.documentElement.classList.add("dark"),document.getElementById("theme").innerText="🌞️",loadCss(localStorage.theme="dark"))}"dark"===localStorage.theme||!("theme"in localStorage)&&window.matchMedia("(prefers-color-scheme: dark)").matches?(document.documentElement.classList.add("dark"),document.getElementById("theme").innerText="🌞️",loadCss("dark")):(document.documentElement.classList.remove("dark"),document.getElementById("theme").innerText="🌝",loadCss("light"))</script><script src="/highlight.js"></script><script>hljs.highlightAll()</script></header><div class="prose prose-indigo dark:prose-invert dark:prose-a:text-indigo-400 max-w-3xl mx-auto p-8"><h1 class="text-center">Futhark</h1><p><a href="../../../../homepage">Homepage</a> / <a href="../../../../university">University</a> / <a href="../../../computer-science">Computer Science</a> / <a href="../../languages">Programming Languages</a> / <a href="../niche-languages">Niche Languages</a> / Futhark</p><p>Futhark is a small programming language designed to be compiled to efficient parallel code. It is a statically typed, data-parallel, and purely functional array language in the ML family, and comes with a heavily optimising ahead-of-time compiler that presently generates either GPU code via CUDA and OpenCL, or multi-threaded CPU code. <a href="https://futhark-lang.org/">https://futhark-lang.org/</a></p><h2 id="basic">Basic</h2><h3 id="compile-cpu-futhark-code">Compile (CPU) <code class="verbatim">futhark</code> code</h3><pre class="example"><code>futhark c main.fut
+</code></pre><h3 id="run">Run</h3><pre class="example"><code>./main
+</code></pre><p>Run with arguments:</p><pre class="example"><code>echo 9 | ./main
+</code></pre><h3 id="compile-gpu---opencl-futhark-code">Compile (GPU - OpenCL) <code class="verbatim">futhark</code> code</h3><pre class="example"><code>futhark opencl main.fut
+</code></pre><h3 id="repl">REPL</h3><pre class="example"><code>futhark repl
+</code></pre><h2 id="primitives">Primitives</h2><p><a href="https://futhark-lang.org/examples/values.html">https://futhark-lang.org/examples/values.html</a></p><h3 id="integers">Integers</h3><pre class="futhark" data-exports="both"><code>def an_int : i32 = 9
+</code></pre><h3 id="floats">Floats</h3><pre class="futhark" data-exports="both"><code>def a_float : f64 = 9.0
+</code></pre><h3 id="booleans">Booleans</h3><pre class="futhark" data-exports="both"><code>def a_boolean = true
+</code></pre><h2 id="arrays">Arrays</h2><p><a href="https://futhark-lang.org/examples/arrays.html">https://futhark-lang.org/examples/arrays.html</a></p><pre class="futhark" data-exports="both"><code>def arr = [1,2,3]
+
+arr
+[1i32, 2i32, 3i32]
+</code></pre><p>Arrays of arrays have to be of the same size:</p><pre class="futhark" data-exports="both"><code>def marr = [[1,2,3], [4,5,6]]
+
+marr
+[[1i32, 2i32, 3i32], [4i32, 5i32, 6i32]]
+</code></pre><p>This is illegal:</p><pre class="futhark" data-exports="both"><code>def marr = [[1,2,3], [4,5]]
+Dimensions &quot;3&quot; and &quot;2&quot; do not match.
+</code></pre><h3 id="index">Index</h3><p>Arrays are indexed from zero:</p><pre class="futhark" data-exports="both"><code>arr[0]
+1i32
+</code></pre><h3 id="slice">Slice</h3><p>Arrays can be sliced:</p><pre class="futhark" data-exports="both"><code>arr[1:]
+[2i32, 3i32]
+</code></pre><h3 id="reverse">Reverse</h3><p>Strides are supported</p><pre class="futhark" data-exports="both"><code>arr[::-1]
+[3i32, 2i32, 1i32]
+</code></pre><h3 id="iota">Iota</h3><pre class="futhark" data-exports="both"><code>iota 5
+[0i64, 1i64, 2i64, 3i64, 4i64]
+</code></pre><h3 id="range">Range</h3><p>Three dots, not two</p><pre class="futhark" data-exports="both"><code>1...5
+[1i32, 2i32, 3i32, 4i32, 5i32]
+</code></pre><h3 id="replicate">Replicate</h3><pre class="futhark" data-exports="both"><code>replicate 3 9
+[9i32, 9i32, 9i32]
+</code></pre><h3 id="map">Map</h3><pre class="futhark" data-exports="both"><code>map (+1) [1, 2, 3]
+[2i32, 3i32, 4i32]
+</code></pre><h3 id="map2">Map2</h3><h3 id="reduce">Reduce</h3><pre class="futhark" data-exports="both"><code>reduce (+) 0 [1, 2, 3]
+6i32
+</code></pre><h3 id="scan">Scan</h3><pre class="futhark" data-exports="both"><code>scan (+) 0 [1, 2, 3, 4]
+[1i32, 3i32, 6i32, 10i32]
+</code></pre><h2 id="tuples">Tuples</h2><pre class="futhark" data-exports="both"><code>def a_tuple = (1, true)
+
+a_tuple
+(1i32, true)
+</code></pre><pre class="futhark" data-exports="both"><code>a_tuple.0
+1i32
+</code></pre><h2 id="records">Records</h2><pre class="futhark" data-exports="both"><code>def a_record = {foo = 1, bar = true}
+
+a_record
+{bar = true, foo = 1i32}
+</code></pre><pre class="futhark" data-exports="both"><code>a_record.foo
+1i32
+</code></pre><h2 id="functions">Functions</h2><p><a href="https://futhark-lang.org/examples/functions.html">https://futhark-lang.org/examples/functions.html</a></p><p>With type inference:</p><pre class="futhark" data-exports="both"><code>def plus1 x =
+  x + 1
+</code></pre><p>With declared types:</p><pre class="futhark" data-exports="both"><code>def plus1 (x: i32) : i32 =
+  x + 1
+</code></pre><pre class="futhark" data-exports="both"><code>def sum a = reduce (+) 0 a
+</code></pre><pre class="futhark" data-exports="both"><code>sum [1, 2, 3]
+6i32
+</code></pre><h3 id="functions-as-infix-operator">Functions as infix operator</h3><pre class="futhark" data-exports="both"><code>def plus = (+)
+</code></pre><pre class="futhark" data-exports="both"><code>2 `plus` 2
+4i32
+</code></pre><h2 id="pipe-operator">Pipe operator</h2><pre class="futhark" data-exports="both"><code>[1,2,3,4] |&gt; scan (+) 0 |&gt; reduce (+) 0
+20i32
+</code></pre><h2 id="sequential-loops">Sequential Loops</h2><pre class="futhark" data-exports="both"><code>loop x = 1 for i &lt; 5 do
+  x * (i + 1)
+</code></pre><h2 id="literate-futhark">Literate Futhark</h2><p><a href="https://futhark-lang.org/examples/literate-basics.html">https://futhark-lang.org/examples/literate-basics.html</a></p><pre class="example"><code>futhark literate {filename}
+</code></pre><p>Convert a <code class="verbatim">.fut</code> file to a <code class="verbatim">.md</code> file. For specially formatted comments (<em>directives</em>), results are appended.</p><h2 id="resources">Resources</h2><h3 id="parallel-programming-in-futhark">Parallel Programming in Futhark</h3><p><a href="https://futhark-book.readthedocs.io/en/latest/">https://futhark-book.readthedocs.io/en/latest/</a></p><h3 id="futhark-users-guide">Futhark User's Guide</h3><p><a href="https://futhark.readthedocs.io/en/stable/">https://futhark.readthedocs.io/en/stable/</a></p></div></body></html>
