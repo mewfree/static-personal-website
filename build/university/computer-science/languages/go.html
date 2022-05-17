@@ -223,4 +223,96 @@ product: 8
 <span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>sum<span class="op">(</span>nums<span class="op">...))</span></span>
 <span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><pre class="example"><code>6
 10
-</code></pre><h2 id="resources">Resources</h2><h3 id="go-by-example">Go by Example</h3><p><a href="https://gobyexample.com/">https://gobyexample.com/</a></p><h3 id="effective-go">Effective Go</h3><p><a href="https://go.dev/doc/effective_go">https://go.dev/doc/effective_go</a></p><h3 id="bubble-tea">Bubble Tea</h3><p><a href="https://github.com/charmbracelet/bubbletea">https://github.com/charmbracelet/bubbletea</a> A powerful little TUI framework</p></div></body></html>
+</code></pre><h2 id="structs">Structs</h2><p>Typed collection of fields Structs are mutable Access structs' field with the dot (<code class="verbatim">.</code>) notation</p><div class="sourceCode" id="cb28" data-exports="both"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="st">&quot;fmt&quot;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> person <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    name <span class="dt">string</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    age  <span class="dt">int</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    b <span class="op">:=</span> person<span class="op">{</span><span class="st">&quot;Bob&quot;</span><span class="op">,</span> <span class="dv">20</span><span class="op">}</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>b<span class="op">)</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>b<span class="op">.</span>age<span class="op">)</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><pre class="example"><code>{Bob 20}
+20
+</code></pre><h2 id="methods">Methods</h2><div class="sourceCode" id="cb30" data-exports="both"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="op">(</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fmt&quot;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;strconv&quot;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> person <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    name <span class="dt">string</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    age  <span class="dt">int</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>p <span class="op">*</span>person<span class="op">)</span> id<span class="op">()</span> <span class="dt">string</span> <span class="op">{</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> p<span class="op">.</span>name <span class="op">+</span> <span class="dt">string</span><span class="op">(</span><span class="ch">&#39;-&#39;</span><span class="op">)</span> <span class="op">+</span> strconv<span class="op">.</span>Itoa<span class="op">(</span>p<span class="op">.</span>age<span class="op">)</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    b <span class="op">:=</span> person<span class="op">{</span><span class="st">&quot;Bob&quot;</span><span class="op">,</span> <span class="dv">20</span><span class="op">}</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>b<span class="op">)</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>b<span class="op">.</span>id<span class="op">())</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><pre class="example"><code>{Bob 20}
+Bob-20
+</code></pre><h2 id="interfaces">Interfaces</h2><p>Named collections of struct types</p><div class="sourceCode" id="cb32" data-exports="both"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="op">(</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fmt&quot;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;strconv&quot;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Living <span class="kw">interface</span> <span class="op">{</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    id<span class="op">()</span> <span class="dt">string</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Person <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    name          <span class="dt">string</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    year_of_birth <span class="dt">int</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Dog <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    name          <span class="dt">string</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    year_of_birth <span class="dt">int</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>p Person<span class="op">)</span> id<span class="op">()</span> <span class="dt">string</span> <span class="op">{</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="st">&quot;person-&quot;</span> <span class="op">+</span> p<span class="op">.</span>name <span class="op">+</span> <span class="dt">string</span><span class="op">(</span><span class="ch">&#39;-&#39;</span><span class="op">)</span> <span class="op">+</span> strconv<span class="op">.</span>Itoa<span class="op">(</span>p<span class="op">.</span>year_of_birth<span class="op">)</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>d Dog<span class="op">)</span> id<span class="op">()</span> <span class="dt">string</span> <span class="op">{</span></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="st">&quot;dog-&quot;</span> <span class="op">+</span> d<span class="op">.</span>name <span class="op">+</span> <span class="dt">string</span><span class="op">(</span><span class="ch">&#39;-&#39;</span><span class="op">)</span> <span class="op">+</span> strconv<span class="op">.</span>Itoa<span class="op">(</span>d<span class="op">.</span>year_of_birth<span class="op">)</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> printData<span class="op">(</span>l Living<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>l<span class="op">)</span></span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>l<span class="op">.</span>id<span class="op">())</span></span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>    printData<span class="op">(</span>Person<span class="op">{</span>name<span class="op">:</span> <span class="st">&quot;Bob&quot;</span><span class="op">,</span> year_of_birth<span class="op">:</span> <span class="dv">1993</span><span class="op">})</span></span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>    printData<span class="op">(</span>Dog<span class="op">{</span>name<span class="op">:</span> <span class="st">&quot;Fido&quot;</span><span class="op">,</span> year_of_birth<span class="op">:</span> <span class="dv">2003</span><span class="op">})</span></span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><pre class="example"><code>{Bob 1993}
+person-Bob-1993
+{Fido 2003}
+dog-Fido-2003
+</code></pre><h2 id="generics">Generics</h2><div class="sourceCode" id="cb34" data-exports="both"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="op">(</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fmt&quot;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Number <span class="kw">interface</span> <span class="op">{</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">~</span><span class="dt">int</span> <span class="op">|</span> <span class="op">~</span><span class="dt">float32</span> <span class="op">|</span> <span class="op">~</span><span class="dt">float64</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> min<span class="op">[</span>T Number<span class="op">](</span>x<span class="op">,</span> y T<span class="op">)</span> T <span class="op">{</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> x <span class="op">&lt;</span> y <span class="op">{</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> x</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> y</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>min<span class="op">(</span><span class="dv">4</span><span class="op">,</span> <span class="dv">9</span><span class="op">))</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span>min<span class="op">(</span><span class="dv">4</span><span class="fl">.5</span><span class="op">,</span> <span class="dv">1</span><span class="fl">.78</span><span class="op">))</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><pre class="example"><code>4
+1.78
+</code></pre><h2 id="resources">Resources</h2><h3 id="go-by-example">Go by Example</h3><p><a href="https://gobyexample.com/">https://gobyexample.com/</a></p><h3 id="effective-go">Effective Go</h3><p><a href="https://go.dev/doc/effective_go">https://go.dev/doc/effective_go</a></p><h3 id="bubble-tea">Bubble Tea</h3><p><a href="https://github.com/charmbracelet/bubbletea">https://github.com/charmbracelet/bubbletea</a> A powerful little TUI framework</p><h3 id="bud">bud</h3><p><a href="https://github.com/livebud/bud">https://github.com/livebud/bud</a> The Full-Stack Web Framework for Go</p></div></body></html>
