@@ -82,9 +82,9 @@ open("build/blog.html", "w") do io
     write(io, output)
 end
 
-# University
-mkpath("build/university")
-for (root, dirs, files) in walkdir("src/university")
+# Notes
+mkpath("build/notes")
+for (root, dirs, files) in walkdir("src/notes")
     for dir in dirs
         path = replace(joinpath(root, dir), "src/" => "build/")
         mkpath(path)
@@ -92,7 +92,7 @@ for (root, dirs, files) in walkdir("src/university")
     for file in files
         filename = joinpath(root, file)
         slug, type = split(filename, ".")
-        slug = replace(slug, "src/university/" => "")
+        slug = replace(slug, "src/notes/" => "")
         if type == "org"
             local data = read(filename, String)
             local exports_both = map(
@@ -113,6 +113,8 @@ for (root, dirs, files) in walkdir("src/university")
                     pipeline(`echo $joined`, `pandoc --from=org --lua-filter filter.lua`),
                     String,
                 ),
+                "university.org\">University" => "notes\">Notes",
+                "./images/" => "/images/",
                 ".org\">" => "\">",
             )
             local excerpt = replace(
@@ -120,7 +122,7 @@ for (root, dirs, files) in walkdir("src/university")
                 r"[^a-zA-Z0-9_\s]" => "",
             )
 
-            local template = read("src/templates/university.html", String)
+            local template = read("src/templates/notes.html", String)
             local templated_string =
                 replace(template, "{TITLE}" => title, "{CONTENT}" => content)
             local output =
@@ -131,9 +133,12 @@ for (root, dirs, files) in walkdir("src/university")
                 ) *
                 templated_string *
                 footer
-            open("build/university/$slug.html", "w") do io
+            open("build/notes/$slug.html", "w") do io
                 write(io, output)
             end
+        elseif type == "png"
+            run(`cp $filename src/public/images/$file`)
+        else
         end
     end
 end
@@ -153,10 +158,10 @@ routes = [
         description = "Learn more about Damien Gonot.",
     ),
     (
-        destination = "university.html",
-        source = "university.org",
-        title = "University - Damien Gonot",
-        description = "Damien Gonot's personal university.",
+        destination = "notes.html",
+        source = "notes.org",
+        title = "Notes - Damien Gonot",
+        description = "Damien Gonot's public notes.",
     ),
 ]
 
@@ -164,11 +169,11 @@ for route in routes
     (; destination, source, title, description) = route
 
     if endswith(source, ".org")
-        local content = replace(read(`pandoc src/$source`, String), ".org\">" => "\">")
-        if source == "university.org"
-            local template = read("src/templates/university.html", String)
+        local content = replace(read(`pandoc src/$source`, String), ".org\">" => "\">", "University" => "Notes", "university" => "notes")
+        if source == "notes.org"
+            local template = read("src/templates/notes.html", String)
             local content =
-                replace(template, "{TITLE}" => "University", "{CONTENT}" => content)
+                replace(template, "{TITLE}" => "Notes", "{CONTENT}" => content)
         end
     elseif endswith(source, ".html")
         local content = read("src/$source", String)
