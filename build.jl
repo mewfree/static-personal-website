@@ -110,7 +110,7 @@ for (root, dirs, files) in walkdir("src/notes")
             local title = metadata["title"]
             local content = replace(
                 read(
-                    pipeline(`echo $joined`, `pandoc --from=org --lua-filter filter.lua`),
+                    pipeline(`echo $joined`, `pandoc --quiet --from=org --lua-filter filter.lua`),
                     String,
                 ),
                 "university.org\">University" => "notes\">Notes",
@@ -118,7 +118,8 @@ for (root, dirs, files) in walkdir("src/notes")
                 ".org\">" => "\">",
             )
             local excerpt = replace(
-                read(pipeline(`echo $joined`, `pandoc --from=org -t plain`), String),
+                read(pipeline(`echo $joined`, `pandoc --quiet --from=org -t plain`), String),
+                "University" => "Notes",
                 r"[^a-zA-Z0-9_\s]" => "",
             )
 
