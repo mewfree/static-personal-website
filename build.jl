@@ -110,7 +110,10 @@ for (root, dirs, files) in walkdir("src/notes")
             local title = metadata["title"]
             local content = replace(
                 read(
-                    pipeline(`echo $joined`, `pandoc --quiet --from=org --lua-filter filter.lua`),
+                    pipeline(
+                        `echo $joined`,
+                        `pandoc --quiet --from=org --lua-filter filter.lua`,
+                    ),
                     String,
                 ),
                 "university.org\">University" => "notes\">Notes",
@@ -118,7 +121,10 @@ for (root, dirs, files) in walkdir("src/notes")
                 ".org\">" => "\">",
             )
             local excerpt = replace(
-                read(pipeline(`echo $joined`, `pandoc --quiet --from=org -t plain`), String),
+                read(
+                    pipeline(`echo $joined`, `pandoc --quiet --from=org -t plain`),
+                    String,
+                ),
                 "University" => "Notes",
                 r"[^a-zA-Z0-9_\s]" => "",
             )
@@ -170,11 +176,15 @@ for route in routes
     (; destination, source, title, description) = route
 
     if endswith(source, ".org")
-        local content = replace(read(`pandoc src/$source`, String), ".org\">" => "\">", "University" => "Notes", "university" => "notes")
+        local content = replace(
+            read(`pandoc src/$source`, String),
+            ".org\">" => "\">",
+            "University" => "Notes",
+            "university" => "notes",
+        )
         if source == "notes.org"
             local template = read("src/templates/notes.html", String)
-            local content =
-                replace(template, "{TITLE}" => "Notes", "{CONTENT}" => content)
+            local content = replace(template, "{TITLE}" => "Notes", "{CONTENT}" => content)
         end
     elseif endswith(source, ".html")
         local content = read("src/$source", String)
@@ -198,7 +208,9 @@ end
 @suppress begin
     run(`cp -a src/public/. build/`)
     run(`./tailwindcss -i src/input.css -o build/main.css --minify`)
-    run(`html-minifier --input-dir ./build --output-dir ./build --collapse-whitespace --minify-js true --file-ext html`)
+    run(
+        `html-minifier --input-dir ./build --output-dir ./build --collapse-whitespace --minify-js true --file-ext html`,
+    )
 end
 
 println("\rWebsite has been generated!")
