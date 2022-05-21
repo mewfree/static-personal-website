@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+pre code {
+    margin-bottom: 1.5em;
+}
