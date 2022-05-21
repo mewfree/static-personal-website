@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><title>Beancount - Damien Gonot</title><link rel="stylesheet" href="/main.css"><link rel="stylesheet" href="/katex.min.css"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="DoubleEntry Accounting from Text Files
+
+Syntax
+
+httpsbeancountgithubiodocsbeancount_language_syntaxhtml
+
+directives  entries
+
+A beancount file is a plain text file full of entries Basic syntax
+YYYYMMDD type  Order of entries is not important
+
+Date format
+
+Either YYYYMMDD 20220214 or YYYYMMDD 2022..."><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body class="bg-white dark:bg-black"><header class="bg-indigo-600 dark:bg-black text-center text-white p-8"><div class="text-4xl font-bold mb-4">Damien Gonot</div><div class="text-xl flex space-x-8 justify-center"><a href="/" class="hover:underline">Home</a> <a href="/blog" class="hover:underline">Blog</a> <a href="/notes" class="hover:underline">Notes</a> <a href="/about" class="hover:underline">About</a> <a id="theme" class="text-2xl hover:cursor-pointer hover:dark" onclick="toggleTheme()">🌝</a></div><script>function loadCss(e){let t=document.createElement("link");t.setAttribute("rel","stylesheet"),t.setAttribute("href",`/highlight.${e}.css`),document.getElementsByTagName("head")[0].appendChild(t)}function toggleTheme(){"dark"===localStorage.theme||!("theme"in localStorage)&&window.matchMedia("(prefers-color-scheme: dark)").matches?(document.documentElement.classList.remove("dark"),document.getElementById("theme").innerText="🌝",loadCss(localStorage.theme="light")):(document.documentElement.classList.add("dark"),document.getElementById("theme").innerText="🌞️",loadCss(localStorage.theme="dark"))}"dark"===localStorage.theme||!("theme"in localStorage)&&window.matchMedia("(prefers-color-scheme: dark)").matches?(document.documentElement.classList.add("dark"),document.getElementById("theme").innerText="🌞️",loadCss("dark")):(document.documentElement.classList.remove("dark"),document.getElementById("theme").innerText="🌝",loadCss("light"))</script><script src="/highlight.js"></script><script>hljs.highlightAll()</script><script defer="defer" src="/katex.min.js"></script><script defer="defer" src="/katex-auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],throwOnError:!1})})</script></header><div class="prose prose-indigo dark:prose-invert dark:prose-a:text-indigo-400 max-w-3xl mx-auto p-8"><h1>Beancount</h1><p>Double-Entry Accounting from Text Files.</p><h2 id="syntax">Syntax</h2><p><a href="https://beancount.github.io/docs/beancount_language_syntax.html">https://beancount.github.io/docs/beancount_language_syntax.html</a></p><p>directives == entries</p><p>A beancount file is a plain text file full of entries. Basic syntax: <code class="verbatim">YYYY-MM-DD &lt;type&gt; ...</code> Order of entries is not important.</p><h3 id="date-format">Date format</h3><p>Either <code class="verbatim">YYYY-MM-DD</code> (2022-02-14) or <code class="verbatim">YYYY/MM/DD</code> (2022/02/14).</p><h3 id="example">Example</h3><pre class="beancount" data-exports="both"><code>2014-02-03 open Assets:US:BofA:Checking
+
+2014-04-10 note Assets:US:BofA:Checking &quot;Called to confirm wire transfer.&quot;
+
+2014-05-02 balance Assets:US:BofA:Checking   154.20 USD
+</code></pre><h3 id="accounts">Accounts</h3><p>Commodities are being accumulated in <code>accounts</code>. An account name is a colon-separated list of capitalized words which begin with a letter, and whose first word must be one of five account types:</p><ul><li>Assets</li><li>Liabilities</li><li>Equity</li><li>Income</li><li>Expenses</li></ul><p>Example of account names:</p><pre class="beancount" data-exports="both"><code>Assets:US:BofA:Checking
+Liabilities:CA:RBC:CreditCard
+Equity:Retained-Earnings
+Income:US:Acme:Salary
+Expenses:Food:Groceries
+</code></pre><h3 id="currencies-commodities">Currencies / Commodities</h3><p>The syntax for a currency is a word all in capital letters, like these:</p><pre class="beancount" data-exports="both"><code>USD
+CAD
+EUR
+MSFT
+IBM
+AIRMILE
+</code></pre><p>Currency signs like € or $ should never be used, only the currency code (like USD or CAD or EUR).</p><h3 id="strings">Strings</h3><p>Whenever we need to insert some free text as part of an entry, it should be surrounded by double-quotes. This applies to the payee and narration fields, mainly; basically anything that’s not a date, a number, a currency, an account name.</p><h3 id="comments">Comments</h3><p>Comments can be insert with a <code class="verbatim">;</code> before it:</p><pre class="beancount" data-exports="both"><code>; I paid and left the taxi, forgot to take change, it was cold.
+2015-01-01 * &quot;Taxi home from concert in Brooklyn&quot;
+  Assets:Cash      -20 USD  ; inline comment
+  Expenses:Taxi
+</code></pre><p>Any line that does not begin as a valid Beancount syntax directive (e.g. with a date) is silently ignored. This way you can insert markup to organize your file for various outline modes, such as org-mode in Emacs.</p><h3 id="entries">Entries</h3><p><a href="https://beancount.github.io/docs/beancount_cheat_sheet.html">https://beancount.github.io/docs/beancount_cheat_sheet.html</a></p><h4 id="open">Open</h4><p>All accounts need to be declared “open” in order to accept amounts posted to them. You do this by writing a directive that looks like this:</p><pre class="beancount" data-exports="both"><code>2014-05-01 open Liabilities:CreditCard:CapitalOne     USD
+</code></pre><p>The general format of the Open directive is: <code class="verbatim">YYYY-MM-DD open Account [ConstraintCurrency,...] ["BookingMethod"]</code></p><h4 id="close">Close</h4><p>Example:</p><pre class="beancount" data-exports="both"><code>; Closing credit card after fraud was detected.
+2016-11-28 close Liabilities:CreditCard:CapitalOne
+</code></pre><p>General format: <code class="verbatim">YYYY-MM-DD close Account</code></p><h4 id="commodity">Commodity</h4><p>Example:</p><pre class="beancount" data-exports="both"><code>1867-07-01 commodity CAD
+</code></pre><p>General format: <code class="verbatim">YYYY-MM-DD commodity Currency</code></p><p>Not mandatory to disclose a commodity before using it (unlike accounts). It's useful to add metadata about a commodity:</p><pre class="beancount" data-exports="both"><code>1867-07-01 commodity CAD
+  name: &quot;Canadian Dollar&quot;
+  asset-class: &quot;cash&quot;
+
+2012-01-01 commodity HOOL
+  name: &quot;Hooli Corporation Class C Shares&quot;
+  asset-class: &quot;stock&quot;
+</code></pre><p>And get stats by <code class="verbatim">asset-class</code> for example.</p><h4 id="transactions">Transactions</h4><p>Example:</p><pre class="beancount" data-exports="both"><code>2014-05-05 txn &quot;Cafe Mogador&quot; &quot;Lamb tagine with wine&quot;
+  Liabilities:CreditCard:CapitalOne         -37.45 USD
+  Expenses:Restaurant
+</code></pre><p><code class="verbatim">txn</code> can be replaced by a flag. By convention, those flags are commonly used:</p><ul><li><code class="verbatim">*</code> for a completed/correct transaction</li><li><code class="verbatim">!</code> for an incomplete/incorrect transaction</li></ul><p>General format: <code class="verbatim">YYYY-MM-DD [txn|Flag] [[Payee] Narration] [Flag] Account Amount [{Cost}] [@ Price] [Flag] Account Amount [{Cost}] [@ Price] ...</code></p><ol><li><p>Postings</p><p>The lines that follow the first line are <code>postings</code>. There can be as many postings as we want.</p><p>Example of a salary entry:</p><pre class="beancount" data-exports="both"><code>2014-03-19 * &quot;Acme Corp&quot; &quot;Bi-monthly salary payment&quot;
+  Assets:MyBank:Checking             3062.68 USD     ; Direct deposit
+  Income:AcmeCorp:Salary            -4615.38 USD     ; Gross salary
+  Expenses:Taxes:TY2014:Federal       920.53 USD     ; Federal taxes
+  Expenses:Taxes:TY2014:SocSec        286.15 USD     ; Social security
+  Expenses:Taxes:TY2014:Medicare       66.92 USD     ; Medicare
+  Expenses:Taxes:TY2014:StateNY       277.90 USD     ; New York taxes
+  Expenses:Taxes:TY2014:SDI             1.20 USD     ; Disability insurance
+</code></pre><p>Arithmetic expressions can be used (<code class="verbatim">( ) * / - +</code>):</p><pre class="beancount" data-exports="both"><code>2014-10-05 * &quot;Costco&quot; &quot;Shopping for birthday&quot;
+  Liabilities:CreditCard:CapitalOne         -45.00          USD
+  Assets:AccountsReceivable:John            ((40.00/3) + 5) USD
+  Assets:AccountsReceivable:Michael         40.00/3         USD
+  Expenses:Shopping
+</code></pre><p>The sum of postings' balance amounts must be zero.</p></li><li><p>Payee and Narration</p><p>A transaction may have an optional “payee” and/or a “narration.” In the first example above, the payee is “Cafe Mogador” and the narration is “Lamb tagine with wine”.</p><p>If you place a single string on a transaction line, it becomes its narration: <code class="verbatim">2014-05-05 * "Lamb tagine with wine"</code></p><p>If you want to set just a payee, put an empty narration string: <code class="verbatim">2014-05-05 * "Cafe Mogador" ""</code></p></li><li><p>Costs and Prices</p><p>Basic example:</p><pre class="beancount" data-exports="both"><code>2012-11-03 * &quot;Transfer to pay credit card&quot;
+  Assets:MyBank:Checking            -400.00 USD
+  Liabilities:CreditCard             400.00 USD
+</code></pre><p>Example with USD.CAD conversion with specific conversion rate:</p><pre class="beancount" data-exports="both"><code>2012-11-03 * &quot;Transfer to account in Canada&quot;
+  Assets:MyBank:Checking            -400.00 USD @ 1.09 CAD
+  Assets:FR:SocGen:Checking          436.01 CAD
+</code></pre><p>Example with a total cost specified with <code class="verbatim">@@</code>:</p><pre class="beancount" data-exports="both"><code>2012-11-03 * &quot;Transfer to account in Canada&quot;
+  Assets:MyBank:Checking            -400.00 USD @@ 436.01 CAD
+  Assets:FR:SocGen:Checking          436.01 CAD
+</code></pre><p>When something needs to be held at a specific cost (like a stock for investing to calculate cost basis, capital gains and taxes), it can be specified inside curly brackets:</p><pre class="beancount" data-exports="both"><code>2014-02-11 * &quot;Bought shares of S&amp;P 500&quot;
+  Assets:ETrade:IVV                10 IVV {183.07 USD}
+  Assets:ETrade:Cash         -1830.70 USD
+</code></pre><pre class="beancount" data-exports="both"><code>2014-07-11 * &quot;Sold shares of S&amp;P 500&quot;
+  Assets:ETrade:IVV               -10 IVV {183.07 USD} @ 197.90 USD
+  Assets:ETrade:Cash          1979.90 USD
+  Income:ETrade:CapitalGains
+</code></pre></li><li><p>Tags</p><p>Tags can be added to transactions:</p><pre class="beancount" data-exports="both"><code>2014-04-23 * &quot;Flight to Berlin&quot; #berlin-trip-2014
+  Expenses:Flights              -1230.27 USD
+  Liabilities:CreditCard
+</code></pre><p>Multiple tags work too:</p><pre class="beancount" data-exports="both"><code>2014-04-23 * &quot;Flight to Berlin&quot; #berlin-trip-2014 #germany
+  Expenses:Flights              -1230.27 USD
+  Liabilities:CreditCard
+</code></pre><p>Using <code class="verbatim">pushtag</code> / <code class="verbatim">poptag</code>:</p><pre class="beancount" data-exports="both"><code>pushtag #berlin-trip-2014
+
+2014-04-23 * &quot;Flight to Berlin&quot;
+  Expenses:Flights              -1230.27 USD
+  Liabilities:CreditCard
+
+poptag #berlin-trip-2014
+</code></pre><p>This way, you can also push multiple tags onto a long, consecutive set of transactions without having to type them all in.</p></li><li><p>Links</p><p>Transactions can be linked together:</p><pre class="beancount" data-exports="both"><code>2014-02-05 * &quot;Invoice for January&quot; ^invoice-pepe-studios-jan14
+  Income:Clients:PepeStudios           -8450.00 USD
+  Assets:AccountsReceivable
+
+2014-02-20 * &quot;Check deposit - payment from Pepe&quot; ^invoice-pepe-studios-jan14
+  Assets:BofA:Checking                  8450.00 USD
+  Assets:AccountsReceivable
+</code></pre></li></ol><h4 id="balance-assertions">Balance Assertions</h4><p>A balance assertion is a way for you to input your statement balance into the flow of transactions. It tells Beancount to verify that the number of units of a particular commodity in some account should equal some expected value at some point in time. For instance, this:</p><pre class="beancount" data-exports="both"><code>2014-12-26 balance Liabilities:US:CreditCard   -3492.02 USD
+</code></pre><p>says “Check that the number of USD units in account <code class="verbatim">Liabilities:US:CreditCard</code> on the morning of December 26th, 2014 is -3492.02 USD.”</p><p>General format: <code class="verbatim">YYYY-MM-DD balance Account Amount</code></p><h4 id="pads">Pads</h4><p>A padding directive automatically inserts a transaction that will make the subsequent balance assertion succeed, if it is needed. It inserts the difference needed to fulfill that balance assertion.</p><p>Example:</p><pre class="beancount" data-exports="both"><code>2014-06-01 pad Assets:BofA:Checking Equity:Opening-Balances
+</code></pre><p>General format: <code class="verbatim">YYYY-MM-DD pad Account AccountPad</code></p><p>Realistic example:</p><pre class="beancount" data-exports="both"><code>; Account was opened way back in the past.
+2002-01-17 open Assets:US:BofA:Checking
+
+2002-01-17 pad Assets:US:BofA:Checking Equity:Opening-Balances
+
+2014-07-09 balance Assets:US:BofA:Checking  987.34 USD
+</code></pre><h4 id="notes">Notes</h4><p>Notes can be used to insert a dated comment to a specific account:</p><pre class="beancount" data-exports="both"><code>2013-11-03 note Liabilities:CreditCard &quot;Called about fraudulent card.&quot;
+</code></pre><p>General format: <code class="verbatim">YYYY-MM-DD note Account Description</code></p><h4 id="documents">Documents</h4><p>A Document directive can be used to attach an external file to the journal of an account:</p><pre class="beancount" data-exports="both"><code>2013-11-03 document Liabilities:CreditCard &quot;/home/joe/stmts/apr-2014.pdf&quot;
+</code></pre><p>General format: <code class="verbatim">YYYY-MM-DD document Account PathToDocument</code></p><h4 id="prices">Prices</h4><p>Price can be used to indicate the price of a commodity (to calculate unrealized capital gains for example):</p><pre class="beancount" data-exports="both"><code>2014-07-09 price HOOL  579.18 USD
+</code></pre><p>General format: <code class="verbatim">YYYY-MM-DD price Commodity Price</code></p><h4 id="events">Events</h4><p>Events can be used to track the value of <em>something</em> over time, like location:</p><pre class="beancount" data-exports="both"><code>2014-07-09 event &quot;location&quot; &quot;Paris, France&quot;
+</code></pre><p>General format: <code class="verbatim">YYYY-MM-DD event Name Value</code></p><p>Ideas of what to track:</p><ul><li>Location: You can use events for tracking the city or country you’re in.</li><li>Address: If you move around a lot, it’s useful to keep a record of your past home addresses. This is sometimes requested on government forms for immigration. The Green Card application process in the US, for instance,</li><li>Employer: You can record your date of employment and departure for each job this way. Then you can count the number of days you worked there.</li></ul><h2 id="commands">Commands</h2><p><code class="verbatim">bean-check {file}</code> to check the validity of a file.</p><p><code class="verbatim">bean-web {file}</code> to view the web interface.</p><p><code class="verbatim">bean-report {file} {report-name}</code> to report on <code class="verbatim">{report-name}</code>, like <code class="verbatim">balances</code>.</p><p><code class="verbatim">bean-query {file}</code> to run a query against file.</p><p><code class="verbatim">bean-format {file}</code> to re-format the file.</p><h2 id="trading">Trading</h2><p><a href="https://beancount.github.io/docs/trading_with_beancount.html">https://beancount.github.io/docs/trading_with_beancount.html</a></p><h2 id="accounting-cookbook">Accounting Cookbook</h2><p><a href="https://beancount.github.io/docs/command_line_accounting_cookbook.html">https://beancount.github.io/docs/command_line_accounting_cookbook.html</a></p><h2 id="query-language">Query Language</h2><p><a href="https://beancount.github.io/docs/beancount_query_language.html">https://beancount.github.io/docs/beancount_query_language.html</a></p></div></body></html>

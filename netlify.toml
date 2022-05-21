@@ -6,3 +6,7 @@
 
 [dev]
   autoLaunch = false
+
+[[redirects]]
+  from = "/homepage"
+  to = "/"

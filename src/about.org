@@ -1,35 +1,34 @@
 #+title: About
 
-* About me
 [[file:damiengonot_resume.pdf][💾 Download my résumé as a PDF]]
 
-** Contact
+* Contact
 - Email: =damien.gonot@gmail.com=
 - GitHub: [[https://github.com/mewfree][@mewfree]]
 - Twitter: [[https://twitter.com/mewfree][@mewfree]]
 - LinkedIn: [[https://www.linkedin.com/in/damiengonot][linkedin.com/in/damiengonot]]
 
-** Personal stack
-*** Hardware
+* Personal stack
+** Hardware
 - 💻 MacBook Pro 14-inch
 - 📱 OnePlus 9 Pro
 - 📖 iPad Mini
 - ⌨️  HHKB Pro 2
 
-*** Software
+** Software
 - ✍️ GNU Emacs (with evil-mode)
 - 🧠 org-mode (this page is built using org-mode!)
 - 🧑‍🌾 tmux
 - ⚙️ zsh
 
-*** Languages
+** Languages
 - 🧙 Elixir
 - 🍃 Clojure
 - 🐫 OCaml
 - 🔬 Julia
 - ‍👨‍🔬 Haskell
 
-** Random
+* Random
 #+begin_src julia-vterm :exports results
 using UnicodePlots
 lineplot(sin, 0:0.5:10, width = 50, canvas = DotCanvas)
@@ -58,4 +57,4 @@ lineplot(sin, 0:0.5:10, width = 50, canvas = DotCanvas)
                                      x
 #+end_example
 
-** λ
+* λ

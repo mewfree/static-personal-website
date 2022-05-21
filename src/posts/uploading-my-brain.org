@@ -1,0 +1,240 @@
+#+title: 🧠 Uploading my brain to the internet
+#+date: 2022-05-20
+#+tags: public learning,knowledge management,pkm,notes
+
+* Introduction
+I'm publishing my notes! They're accessible from the top menu or [[file:/notes][directly from this link]].
+
+There are close to 80 different pages, some longer than others ([[file:/notes/computer-science][Computer Science]], [[file:/notes/finance][Finance]], [[file:/notes/psychology][Psychology]]...). Quality (and quantity) varies a lot depending on my knowledge of the subject.
+
+I've been gathering them privately over the past few years and decided that there were no reasons to keep them private and not making them available to anybody online.
+
+* Why take so many notes?
+** Task tracking
+It all started with task tracking.
+If you work at a software company, you've probably used Kanban boards before.
+
+Everybody need to track tasks of some sorts. Most people probably manage just right with their memory only.
+But sometimes it gets a bit too complicated and you need to write your own little to-dos, outside of work.
+
+For me, this manifested the most during immigration processes (like applying for a new work permit) or when moving between apartments (switching utility providers, telling everybody who has your address that it changed, tracking deposits/first month of rent...).
+
+** Journaling onset
+In August of 2019, I had a bike accident that resulted in a concussion.
+I was so afraid of memory loss that I felt the urge to document everything.
+
+To be fair, this habit had started a few days before that, but the post-concussion syndrome symptoms really made me stick to it, to an even greater extent.
+
+I had started journaling using [[file:#notion][Notion]] just a few days before the accident.
+I believe I had initially heard colleagues starting to use Notion internally to manage their team's documents.
+I tried it myself and was instantly hooked.
+
+I have the tendency to not keep up with those habits (tried journaling with [[file:https://jrnl.sh/][jrnl.sh]] in the past and quickly abandoned).
+If it wasn't for my accident, I probably would have never stuck with either journaling or [[file:#notion][Notion]].
+
+I'm getting close to 1,000 daily journal entries now, so I will probably write a dedicated blog post about my journaling practice, but it is closely linked to my note taking experience.
+
+** "Second brain"
+So we have task tracking, journaling... What else is missing?
+Well, according to me... Everything else.
+
+Let's say you watch an interesting YouTube video or read a fascinating book.
+What do you do with the knowledge that you just acquired?
+
+You're reading a programming tutorial and trying to wrap your head around a new concept...
+What do you do so you can efficient learn about this new concept and remember about it the next day?
+
+Again, most people probably don't take any notes and try to remember everything by heart, but this is quite inefficient.
+There is value in having everything at one place, written in your own words.
+
+* Why publish them online?
+I've had this idea of creating my own personal "university" for a while.
+The term "university" is a bit pompous so I decided to simply name it "[[file:/notes][notes]]" because it's basically what it is.
+
+A more or less organized network of notes on subjects that are usually taught by universities.
+But there is very little research, no assignments, no knowledge check...
+
+Nowadays, knowledge is easily available, often free and constantly changing.
+Education should never stops.
+
+The main target audience of those notes is... me!
+I mainly do this for myself and only decided to publish them because it was so easy to export them to [[file:/notes/computer-science/languages#html][HTML]].
+
+* Introduction to Personal Knowledge Management (PKM)
+** What is PKM?
+The concept behind Personal Knowledge Management is that everyone should have their own organized thoughts around the topics they want.
+
+** Why do PKM?
+The benefits that I personally see are:
+- Easy to *search*: because it's just text files locally on your computer, you're able to search through them very efficiently and recover data faster than through external search engines
+- *Learning* by writing: it is scientifically proven that writing down notes helps with memorization
+- *Organizing* your thoughts as you wish: you can fully customize your own notes
+- Discovering *links*: I think this is a bit oversold, but some people really seem to dig the idea of finding "patterns" or "links" between domains / ideas that are being explored through these tools
+
+** Modern tools used for PKM
+*** [[file:https://www.notion.so/][Notion]]
+#+begin_quote
+One workspace.
+
+Every team.
+
+We’re more than a doc. Or a table. Customize Notion to work the way you do.
+#+end_quote
+
+| Pros                                              | Cons                    |
+|---------------------------------------------------+-------------------------|
+| Free for personal use                             | Closed source           |
+| Very customizable, have different views available | Hosted by a third-party |
+| Database concept is pretty cool                   |                         |
+| Great mobile support                              |                         |
+
+*** [[file:https://roamresearch.com/][Roam Research]]
+#+begin_quote
+A note-taking tool for networked thought.
+
+As easy to use as a document. As powerful as a graph database.
+
+Roam helps you organize your research for the long haul.
+#+end_quote
+
+| Pros                                                   | Cons                                                           |
+|--------------------------------------------------------+----------------------------------------------------------------|
+| Linking system is nice                                 | Difficult to use on mobile... though mobile apps just launched |
+| They helped open source ClojureDart which is very cool | Closed source                                                  |
+|                                                        | Not free                                                       |
+
+*** [[file:https://obsidian.md/][Obsidian]]
+#+begin_quote
+A second brain, for you, forever.
+
+Obsidian is a powerful knowledge base on top of a local folder of plain text Markdown files.
+#+end_quote
+
+| Pros                                          | Cons                    |
+|-----------------------------------------------+-------------------------|
+| Free for personal use                         | Closed source           |
+| Plain Markdown files 👍                       | Plain Markdown files 😩 |
+| Great plugins ([[file:/notes/computer-science/text-editors/vim][vim]] mode, [[file:/notes/computer-science/git][git]] auto commits...) |                         |
+
+*** [[file:https://logseq.com/][Logseq]]
+#+begin_quote
+Connected thoughts to increase understanding
+
+Logseq is a privacy-first, open-source knowledge base that works on top of local plain-text Markdown and Org-mode files. Use it to write, organize and share your thoughts, keep your to-do list, and build your own digital garden.
+#+end_quote
+
+| Pros                                  | Cons                              |
+|---------------------------------------+-----------------------------------|
+| Plain text files                      | Mobile app is iOS only for now... |
+| Amazing support for [[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]] files!       |                                   |
+| Open source                           |                                   |
+
+*** [[file:https://www.orgroam.com/][Org-roam]]
+#+begin_quote
+Org-roam
+
+A plain-text personal knowledge management system.
+#+end_quote
+
+| Pros                | Cons                                                                     |
+|---------------------+--------------------------------------------------------------------------|
+| Plain =.org= files! | Forces you to use a weird ID system...                                   |
+| Open source         | Have to learn [[file:/notes/computer-science/text-editors/emacs][Emacs]] |
+
+*** Conclusion
+| Tool                                                                                                                | Open source | Plain text files | Easily editable on mobile                                                                                  |
+|---------------------------------------------------------------------------------------------------------------------+-------------+------------------+------------------------------------------------------------------------------------------------------------|
+| [[file:#notion][Notion]]                                                                                            | ❌          | ❌               | ✅                                                                                                         |
+| [[file:#roam-research][Roam Research]]                                                                              | ❌          | ❌               | 🫤                                                                                                         |
+| [[file:#obsidian][Obsidian]]                                                                                        | ❌          | ✅               | ✅                                                                                                         |
+| [[file:#logseq][Logseq]]                                                                                            | ✅          | ✅               | 🫤                                                                                                         |
+| [[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]] (plain or with [[file:#org-roam][Org-roam]]) | ✅          | ✅               | 😛 only if you're willing to run [[file:/notes/computer-science/text-editors/emacs][Emacs]] on your phone! |
+
+* My personal history with PKM tools
+** The beginnings
+During my time in University, I basically took zero notes.
+I would go sit in the class, look at the slides, actively listen to the Professor and try to remember as much as possible.
+When it was time to take the exam, I would simply go over the slides again and try to re-do the exercises.
+
+** [[file:https://trello.com/][Trello]] & [[file:https://keep.google.com/][Google Keep]]
+I had a love-hate relationship with Trello.
+
+I first hated Trello, but quickly realized when I first started to use it by and for myself, that I wasn't hating Trello.
+I was hating on how little control I had over it when I was using it at my job.
+
+I since made peace with Trello and used it for a while for more organized tasks / projects.
+
+Google Keep was used for quick notes, especially good on mobile.
+Being able to take quick notes on mobile is very important to me.
+
+** [[file:#notion][Notion]]
+As we saw earlier I started using [[file:#notion][Notion]] a few years ago. It is an excellent tool and I really enjoy using it.
+This is still what I use whenever I need to work on something collaboratively with other people.
+
+It finally allowed me to combine Trello, Google Keep, and even a little bit of Google Spreadsheets and Google Calendar, all in one very well designed tool.
+
+But I had some issues on keeping personal data hosted there and their availability in case of outages ([[file:https://techcrunch.com/2021/02/12/notion-outage-dns-domain-issues/][like dreaded DNS issues]]).
+
+** [[file:#obsidian][Obsidian]] & [[file:https://gitjournal.io/][GitJournal]]
+Liked that I was able to use plain text files (potentially encrypted) and that I could them sync using [[file:/notes/computer-science/git][Git]].
+
+Having a [[file:/notes/computer-science/text-editors/vim][vim]]-mode plugin available was also greatly appreciated.
+
+For mobile, I was using [[file:https://gitjournal.io/][GitJournal]] as [[file:#obsidian][Obsidian]] mobile apps were not available at the time, which works really great!
+
+But I still felt like something was missing...
+
+** [[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]] using [[file:/notes/computer-science/text-editors/emacs][Emacs]]
+Now we're getting to [[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]]. My *ultimate* productivity tool.
+What managed to make me switch from [[file:/notes/computer-science/text-editors/vim][Vim]] to [[file:/notes/university/computer-science/text-editors/emacs][Emacs]].
+
+This is how [[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]] is described on [[file:https://orgmode.org/][orgmode.org]]:
+#+begin_quote
+A GNU Emacs major mode for keeping notes, authoring documents, computational notebooks, literate programming, maintaining to-do lists, planning projects, and more — in a fast and effective plain text system.
+#+end_quote
+
+To put it more simply, [[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]] is an *extension* of a [[file:/notes/computer-science/text-editors][Text editor]] ([[file:/notes/computer-science/text-editors/emacs][Emacs]]) and it has *a lot* of features:
+- Its own [[file:/notes/computer-science/text-editors/emacs/org-mode#markup][markup]] language
+- Support for [[file:/notes/computer-science/text-editors/emacs/org-mode#todo][ToDos]]
+- [[file:/notes/computer-science/text-editors/emacs/org-mode#babel][Babel]] is simply fabulous: code notebooks for every programming language
+- Support for [[file:/notes/computer-science/text-editors/emacs/org-mode#tables][tables]] (even [[file:/notes/computer-science/text-editors/emacs/org-mode#spreadsheet][spreadsheets]]!)
+- Great support for [[file:/notes/computer-science/text-editors/emacs/org-mode#latex][LaTeX]]
+
+And the best of all... It works perfectly fine on Android using Termux!
+On iOS / iPadOS, it's possible to SSH to a Raspberry Pi or VPS and use [[file:/notes/computer-science/text-editors/emacs][Emacs]] there.
+
+** Honourable mention to [[file:#logseq][Logseq]]
+[[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]] is my /endgame/ but I need to mention [[file:#logseq][Logseq]].
+
+I believe it is one of the best tools out there and this is what I would probably use it if I hadn't learnt how to use [[file:/notes/computer-science/text-editors/emacs][Emacs]].
+
+I actually sometimes use it on top of my existing [[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]] files for the knowledge graph feature.
+
+* How are my [[file:/notes][notes]] published?
+All of those pages are initially [[file:/notes/computer-science/text-editors/emacs/org-mode][Org-mode]] files.
+I have a /script/ written in [[file:/notes/computer-science/languages/julia][Julia]] that uses [[file:/notes/computer-science#pandoc][Pandoc]] to export =.org= files to HTML.
+[[file:/notes/computer-science/text-editors/emacs][Emacs]] also has some exporting capabilities but I liked [[file:/notes/computer-science#pandoc][Pandoc]]'s customization better.
+
+The /script/ is open source here: https://github.com/mewfree/static-personal-website/blob/main/build.jl
+
+Once the =.html= files are generated, the whole site is hosted on [[file:https://www.netlify.com/][Netlify]].
+
+* My inspirations and influences
+** [[file:https://www.gwern.net/][Gwern]]
+[[file:https://www.gwern.net/][Gwern]]'s website is quite amazing.
+
+There's a wide array of articles, everything is treated /very/ deeply and the attention put to details is incredible.
+
+** [[file:http://xahlee.info/][Xah Lee]]
+I think I deserve to mention [[file:http://xahlee.info/][Xah Lee's website]] here.
+I discovered his website by searching for [[file:http://xahlee.info/emacs/emacs/elisp.html][Emacs Lisp tutorials]].
+
+Like [[file:https://www.gwern.net/][Gwern]], the covered topics are very diverse. But there is especially a lot of [[file:http://xahlee.info/emacs/emacs/emacs.html][Emacs]], [[file:http://xahlee.info/kbd/keyboarding.html][keyboards]] and [[file:http://xahlee.info/math/math_index.html][math]] stuff.
+
+** [[file:https://reasonabledeviations.com/2022/04/18/molecular-notes-part-1/][Molecular Notes]] from [[file:https://reasonabledeviations.com/][Reasonable Deviations]]
+A [[file:https://reasonabledeviations.com/2022/04/18/molecular-notes-part-1/][recent article]] from the excellent blog [[file:https://reasonabledeviations.com/][Reasonable Deviations]] described a note-taking system that resonated a lot with me.
+Too bad their notes are not publicly available 😉.
+
+* Conclusion
+I've been meaning to do this for a while so I'm very excited to finally have it [[file:/notes][available]].
+We'll see if this has any impact at all, people might appreciate it, people might not care about it at all, I might regret it, I might wish I did it sooner...
