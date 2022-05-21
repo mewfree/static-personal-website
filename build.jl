@@ -4,7 +4,7 @@ using Suppressor
 print("Generating website...")
 
 # Clean up first
-isdir("build") && rm("build", recursive = true)
+isdir("build") && rm("build", recursive=true)
 
 header = read("src/header.html", String)
 footer = read("src/footer.html", String)
@@ -27,7 +27,7 @@ for filename in readdir("src/posts")
         yaml = match(r"---\n((.|\n)+?)---", data).captures[1]
         yaml = replace(yaml, "[" => "", "]" => "", "\"" => "")
         metas = split(chomp(yaml), "\n")
-        metas = split.(metas, ": ", limit = 2)
+        metas = split.(metas, ": ", limit=2)
         metadata = Dict(meta[1] => meta[2] for meta in metas)
         title = metadata["title"]
         date = metadata["date"]
@@ -35,7 +35,7 @@ for filename in readdir("src/posts")
         tags = strip.(tags)
     else
     end
-    content = read(`pandoc src/posts/$filename --lua-filter filter.lua`, String)
+    content = read(`pandoc src/posts/$filename --shift-heading-level-by=1`, String)
     excerpt = read(`pandoc src/posts/$filename -t plain`, String)
 
     post = Dict("slug" => slug, "title" => title, "date" => date, "tags" => tags)
@@ -58,7 +58,7 @@ for filename in readdir("src/posts")
 end
 
 # List of blog posts
-posts = sort(posts, by = p -> Date(p["date"]), rev = true)
+posts = sort(posts, by=p -> Date(p["date"]), rev=true)
 post_link_template = read("src/templates/post-link.html", String)
 posts_template = read("src/templates/posts.html", String)
 posts_list = [
@@ -98,10 +98,10 @@ for (root, dirs, files) in walkdir("src/notes")
             local exports_both = map(
                 line ->
                     if startswith(line, "#+begin_src") && !contains(line, ":exports")
-                        return line * " :exports both"
-                    else
-                        return line
-                    end,
+                return line * " :exports both"
+            else
+                return line
+            end,
                 split(data, "\n"),
             )
             local joined = join(exports_both, "\n")
@@ -112,7 +112,7 @@ for (root, dirs, files) in walkdir("src/notes")
                 read(
                     pipeline(
                         `echo $joined`,
-                        `pandoc --quiet --from=org --lua-filter filter.lua`,
+                        `pandoc --quiet --from=org --shift-heading-level-by=1`,
                     ),
                     String,
                 ),
@@ -129,7 +129,7 @@ for (root, dirs, files) in walkdir("src/notes")
                 r"[^a-zA-Z0-9_\s]" => "",
             )
 
-            local template = read("src/templates/notes.html", String)
+            local template = read("src/templates/default.html", String)
             local templated_string =
                 replace(template, "{TITLE}" => title, "{CONTENT}" => content)
             local output =
@@ -156,36 +156,37 @@ routes = [
         destination = "index.html",
         source = "index.html",
         title = "Damien Gonot",
+        heading = "",
         description = "Homepage of Damien Gonot's personal website.",
     ),
     (
         destination = "about.html",
         source = "about.org",
         title = "About - Damien Gonot",
+        heading = "About me",
         description = "Learn more about Damien Gonot.",
     ),
     (
         destination = "notes.html",
         source = "notes.org",
         title = "Notes - Damien Gonot",
+        heading = "Notes",
         description = "Damien Gonot's public notes.",
     ),
 ]
 
 for route in routes
-    (; destination, source, title, description) = route
+    (; destination, source, title, heading, description) = route
 
     if endswith(source, ".org")
-        local content = replace(
-            read(`pandoc src/$source`, String),
+        local template = read("src/templates/default.html", String)
+        local html = replace(
+            read(`pandoc src/$source --shift-heading-level-by=1`, String),
             ".org\">" => "\">",
             "University" => "Notes",
             "university" => "notes",
         )
-        if source == "notes.org"
-            local template = read("src/templates/notes.html", String)
-            local content = replace(template, "{TITLE}" => "Notes", "{CONTENT}" => content)
-        end
+        local content = replace(template, "{TITLE}" => heading, "{CONTENT}" => html)
     elseif endswith(source, ".html")
         local content = read("src/$source", String)
     else
