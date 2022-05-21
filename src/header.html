@@ -51,11 +51,18 @@
                 }
             </script>
             <script src="/highlight.js"></script>
-            <script>hljs.highlightAll()</script>
             <script defer src="/katex.min.js"></script>
             <script defer src="/katex-auto-render.min.js"></script>
             <script>
-                document.addEventListener("DOMContentLoaded", function() {
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    document.querySelectorAll('pre code').forEach((el) => {
+                        el.classList.remove('sourceCode');
+                        if (el.classList.length > 0) {
+                            el.classList.replace(el.classList[0], 'language-' + el.classList[0]);
+                        }
+                        hljs.highlightElement(el);
+                    });
+
                     renderMathInElement(document.body, {
                     delimiters: [
                         {left: '$$', right: '$$', display: true},
