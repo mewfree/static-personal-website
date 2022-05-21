@@ -128,10 +128,14 @@ for (root, dirs, files) in walkdir("src/notes")
                 "University" => "Notes",
                 r"[^a-zA-Z0-9_\s]" => "",
             )
+            local toc = read(
+                pipeline(`echo $joined`, `pandoc --quiet --from=org --toc --toc-depth=2 --template src/templates/toc-only.html`),
+                String,
+            )
 
-            local template = read("src/templates/default.html", String)
+            local template = read("src/templates/notes.html", String)
             local templated_string =
-                replace(template, "{TITLE}" => title, "{CONTENT}" => content)
+                replace(template, "{TITLE}" => title, "{CONTENT}" => content, "{TOC}" => toc)
             local output =
                 replace(
                     header,
