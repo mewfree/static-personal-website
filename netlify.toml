@@ -10,3 +10,7 @@
 [[redirects]]
   from = "/homepage"
   to = "/"
+
+[[redirects]]
+  from = "/resume"
+  to = "/about"
