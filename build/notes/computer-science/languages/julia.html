@@ -128,13 +128,13 @@ origin
 </code></pre><pre class="example"><code>[1, 2, 3]
 </code></pre><h4 id="matrix">Matrix</h4><pre class="julia-vterm" data-exports="both"><code>[1 2 3; 4 5 6]
 </code></pre><pre class="example"><code>[1 2 3; 4 5 6]
-</code></pre><ol><li><p>Horizontal Concatenation</p><pre class="julia-vterm" data-exports="both"><code>hcat([1, 2, 3], [4, 5, 6])
+</code></pre><h5 id="horizontal-concatenation">Horizontal Concatenation</h5><pre class="julia-vterm" data-exports="both"><code>hcat([1, 2, 3], [4, 5, 6])
 </code></pre><pre class="example"><code>[1 4; 2 5; 3 6]
 </code></pre><pre class="julia-vterm" data-exports="both"><code>a1 = [1, 2, 3]
 a2 = [4, 5, 6]
 [a1 a2]
 </code></pre><pre class="example"><code>[1 4; 2 5; 3 6]
-</code></pre></li></ol><h4 id="push-pop-append">Push / Pop / Append</h4><pre class="julia-vterm" data-exports="both"><code>array = []
+</code></pre><h4 id="push-pop-append">Push / Pop / Append</h4><pre class="julia-vterm" data-exports="both"><code>array = []
 
 # pushing an element to an array
 push!(array, &quot;element&quot;)
@@ -163,22 +163,22 @@ append!(array, [1, 2, 3])
 </code></pre><pre class="example"><code>[0.20655599984205453, 0.764336425218688, 0.707929049283852, 0.5403245301033117, 0.5747141117006983]
 </code></pre><p>Using standard Normal:</p><pre class="julia-vterm" data-exports="both"><code>randn(5)
 </code></pre><pre class="example"><code>[1.2611015684267128, 0.5431280372799115, -1.0866220141038392, 0.5592503716247522, -0.19501274806221938]
-</code></pre><h4 id="accessing-values">Accessing Values</h4><ol><li><p>Single Element</p><pre class="julia-vterm" data-exports="both"><code>xs = [5, 10, 15]
+</code></pre><h4 id="accessing-values">Accessing Values</h4><h5 id="single-element">Single Element</h5><pre class="julia-vterm" data-exports="both"><code>xs = [5, 10, 15]
 xs[1]
 </code></pre><pre class="example"><code>5
 </code></pre><pre class="julia-vterm" data-exports="both"><code>m = [5 10 15; 20 25 30]
 m[2,2]
 </code></pre><pre class="example"><code>25
-</code></pre></li><li><p>Range of Elements</p><p>Using <code class="verbatim">end</code></p><pre class="julia-vterm" data-exports="both"><code>xs = [5, 10, 15, 20, 25]
+</code></pre><h5 id="range-of-elements">Range of Elements</h5><p>Using <code class="verbatim">end</code></p><pre class="julia-vterm" data-exports="both"><code>xs = [5, 10, 15, 20, 25]
 xs[3:end]
 </code></pre><pre class="example"><code>[15, 20, 25]
-</code></pre><ol><li><p>By column</p><pre class="julia-vterm" data-exports="both"><code>m = [5 10 15; 20 25 30]
+</code></pre><h6 id="by-column">By column</h6><pre class="julia-vterm" data-exports="both"><code>m = [5 10 15; 20 25 30]
 m[:,1]
 </code></pre><pre class="example"><code>[5, 20]
-</code></pre></li><li><p>By row</p><pre class="julia-vterm" data-exports="both"><code>m = [5 10 15; 20 25 30]
+</code></pre><h6 id="by-row">By row</h6><pre class="julia-vterm" data-exports="both"><code>m = [5 10 15; 20 25 30]
 m[1,:]
 </code></pre><pre class="example"><code>[5, 10, 15]
-</code></pre></li></ol></li></ol><h4 id="concatenation-1">Concatenation</h4><pre class="julia-vterm" data-exports="both"><code>vcat([1, 2], [3, 4])
+</code></pre><h4 id="concatenation-1">Concatenation</h4><pre class="julia-vterm" data-exports="both"><code>vcat([1, 2], [3, 4])
 </code></pre><pre class="example"><code>[1, 2, 3, 4]
 </code></pre><pre class="julia-vterm" data-exports="both"><code>a1 = [1, 2]
 a2 = [3, 4]
@@ -187,15 +187,15 @@ a2 = [3, 4]
 </code></pre><h4 id="filter">Filter</h4><pre class="julia-vterm" data-exports="both"><code>filter(x -&gt; x &lt; 5, 1:10)
 </code></pre><pre class="example"><code>[1, 2, 3, 4]
 </code></pre><h4 id="list-comprehensions">List Comprehensions</h4><div class="sourceCode" id="cb146" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>[x<span class="op">^</span><span class="fl">2</span> for x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>]</span></code></pre></div><pre class="example"><code>[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-</code></pre><ol><li><p>Resources</p><p><a href="https://blog.lojic.com/2020/12/26/comprehensions-in-julia.html">https://blog.lojic.com/2020/12/26/comprehensions-in-julia.html</a></p></li></ol><h4 id="end">End</h4><pre class="julia-vterm" data-exports="both"><code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;][end]
+</code></pre><h5 id="resources">Resources</h5><p><a href="https://blog.lojic.com/2020/12/26/comprehensions-in-julia.html">https://blog.lojic.com/2020/12/26/comprehensions-in-julia.html</a></p><h4 id="end">End</h4><pre class="julia-vterm" data-exports="both"><code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;][end]
 </code></pre><pre class="example"><code>c
 </code></pre><h4 id="sort">Sort</h4><pre class="julia-vterm" data-exports="both"><code>[3, 2, 1] |&gt; sort
 </code></pre><pre class="example"><code>[1, 2, 3]
-</code></pre><ol><li><p>Sort by</p><pre class="julia-vterm" data-exports="both"><code>sort([Dict(&quot;x&quot; =&gt; 3, &quot;y&quot; =&gt; &#39;a&#39;), Dict(&quot;x&quot; =&gt; 2, &quot;y&quot; =&gt; &#39;b&#39;), Dict(&quot;x&quot; =&gt; 1, &quot;y&quot; =&gt; &#39;c&#39;)], by = i -&gt; i[&quot;x&quot;])
+</code></pre><h5 id="sort-by">Sort by</h5><pre class="julia-vterm" data-exports="both"><code>sort([Dict(&quot;x&quot; =&gt; 3, &quot;y&quot; =&gt; &#39;a&#39;), Dict(&quot;x&quot; =&gt; 2, &quot;y&quot; =&gt; &#39;b&#39;), Dict(&quot;x&quot; =&gt; 1, &quot;y&quot; =&gt; &#39;c&#39;)], by = i -&gt; i[&quot;x&quot;])
 </code></pre><pre class="example"><code>Dict{String, Any}[Dict(&quot;x&quot; =&gt; 1, &quot;y&quot; =&gt; &#39;c&#39;), Dict(&quot;x&quot; =&gt; 2, &quot;y&quot; =&gt; &#39;b&#39;), Dict(&quot;x&quot; =&gt; 3, &quot;y&quot; =&gt; &#39;a&#39;)]
-</code></pre></li><li><p>Reverse sort</p><pre class="julia-vterm" data-exports="both"><code>sort([1, 2, 3], rev = true)
+</code></pre><h5 id="reverse-sort">Reverse sort</h5><pre class="julia-vterm" data-exports="both"><code>sort([1, 2, 3], rev = true)
 </code></pre><pre class="example"><code>[3, 2, 1]
-</code></pre></li></ol><h4 id="destructuring">Destructuring</h4><pre class="julia-vterm" data-exports="both"><code>a, b, c = [1, 2, 3]
+</code></pre><h4 id="destructuring">Destructuring</h4><pre class="julia-vterm" data-exports="both"><code>a, b, c = [1, 2, 3]
 b
 </code></pre><pre class="example"><code>2
 </code></pre><pre class="julia-vterm" data-exports="both"><code>a, b... = [1, 2, 3]

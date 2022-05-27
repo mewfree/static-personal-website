@@ -104,7 +104,7 @@ for (root, dirs, files) in walkdir("src/notes")
             end,
                 split(data, "\n"),
             )
-            local joined = join(exports_both, "\n")
+            local joined = join(["#+options: H:6"; exports_both], "\n")
             local matches = collect(eachmatch(r"#\+(?<key>.*): (?<value>.*)", data))
             local metadata = Dict(match["key"] => match["value"] for match in matches)
             local title = metadata["title"]
