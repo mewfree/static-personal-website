@@ -24,6 +24,8 @@ httpsammoniteioScalaScripts..."><meta http-equiv="Content-Type" content="text/ht
 </code></pre><pre class="example"><code>This is a string
 </code></pre><h2 id="numbers">Numbers</h2><pre class="amm" data-exports="both"><code>println(1 + 1)
 </code></pre><pre class="example"><code>2
+</code></pre><h3 id="ranges">Ranges</h3><pre class="amm" data-exports="both"><code>println((1 to 5))
+</code></pre><pre class="example"><code>Range 1 to 5
 </code></pre><h2 id="values">Values</h2><p>Values are immutable</p><pre class="amm" data-exports="both"><code>val x = 1 + 1
 </code></pre><pre class="example"><code>x: Int = 2
 </code></pre><h2 id="variables">Variables</h2><p>Variables are similar to values, but can be re-assigned</p><pre class="amm" data-exports="both"><code>var y = 1 + 1
@@ -51,7 +53,7 @@ defined function add
 greeter.greet(&quot;Damien&quot;)
 </code></pre><pre class="example"><code>Hello, Damien!
 greeter: Greeter = ammonite.$sess.cmd34$Greeter@7585531b
-</code></pre><h2 id="case-classes">Case Classes</h2><p>Immutables and compared by value (not reference like <code class="verbatim">classes</code>)</p><pre class="amm" data-exports="both"><code>case class Point(x: Int, y: Int)
+</code></pre><h2 id="case-classes">Case Classes</h2><p>Immutable and compared by value (not reference like <code class="verbatim">classes</code>)</p><pre class="amm" data-exports="both"><code>case class Point(x: Int, y: Int)
 </code></pre><pre class="example"><code>defined class Point
 </code></pre><pre class="amm" data-exports="both"><code>val point = Point(1, 2)
 val anotherPoint = Point (1, 2)
@@ -122,4 +124,24 @@ customGreeter: CustomizableGreeter = ammonite.$sess.cmd46$CustomizableGreeter@63
 </code></pre><pre class="example"><code>List(c, b, a)
 </code></pre><h5 id="map">Map</h5><pre class="amm" data-exports="both"><code>println(List(1, 2, 3).map(_ * 2))
 </code></pre><pre class="example"><code>List(2, 4, 6)
-</code></pre><h2 id="resources">Resources</h2><ul><li><a href="https://docs.scala-lang.org/tour/basics.html">https://docs.scala-lang.org/tour/basics.html</a></li><li><a href="https://docs.scala-lang.org/scala3/new-in-scala3.html">https://docs.scala-lang.org/scala3/new-in-scala3.html</a></li></ul><h3 id="metals-scala-language-server">Metals (Scala Language Server)</h3><ul><li><a href="https://scalameta.org/metals/docs/editors/emacs/">https://scalameta.org/metals/docs/editors/emacs/</a></li><li><a href="https://ag91.github.io/blog/2020/10/16/my-emacs-setup-for-scala-development/">https://ag91.github.io/blog/2020/10/16/my-emacs-setup-for-scala-development/</a></li></ul><h3 id="functional-programming">Functional Programming</h3><h4 id="scalaz">Scalaz</h4><ul><li><a href="https://github.com/scalaz/scalaz">https://github.com/scalaz/scalaz</a></li></ul><h4 id="cats">Cats</h4><ul><li><a href="https://github.com/typelevel/cats">https://github.com/typelevel/cats</a></li><li><a href="https://underscore.io/books/scala-with-cats/">https://underscore.io/books/scala-with-cats/</a></li><li><a href="https://www.scalawithcats.com/">https://www.scalawithcats.com/</a></li></ul><h4 id="zio">Zio</h4><p><a href="https://zio.dev/">https://zio.dev/</a> Type-safe, composable asynchronous and concurrent programming for Scala</p><h4 id="the-red-book">"The red book"</h4><p><a href="https://www.manning.com/books/functional-programming-in-scala">https://www.manning.com/books/functional-programming-in-scala</a></p><h3 id="scala-school">Scala School</h3><p><a href="https://twitter.github.io/scala_school/">https://twitter.github.io/scala_school/</a></p></div></body></html>
+</code></pre><h5 id="filter">Filter</h5><pre class="amm" data-exports="both"><code>println(List(5, 6, 7, 8, 9, 10).filter(_ % 2 == 0))
+</code></pre><pre class="example"><code>List(6, 8, 10)
+</code></pre><h5 id="reduce-left">Reduce Left</h5><pre class="amm" data-exports="both"><code>println(List(1, 2, 3).reduceLeft(_ + _))
+</code></pre><pre class="example"><code>6
+</code></pre><h5 id="range-to-list">Range to List</h5><pre class="amm" data-exports="both"><code>println((1 to 5).toList)
+</code></pre><pre class="example"><code>List(1, 2, 3, 4, 5)
+</code></pre><h5 id="prepend">Prepend</h5><pre class="amm" data-exports="both"><code>println(0 :: List(1, 2, 3))
+</code></pre><pre class="example"><code>List(0, 1, 2, 3)
+</code></pre><h3 id="maps">Maps</h3><pre class="amm" data-exports="both"><code>val countries = Map(&quot;FR&quot; -&gt; &quot;France&quot;, &quot;CA&quot; -&gt; &quot;Canada&quot;, &quot;US&quot; -&gt; &quot;United States&quot;)
+</code></pre><pre class="example"><code>countries: Map[String, String] = Map(&quot;FR&quot; -&gt; &quot;France&quot;, &quot;CA&quot; -&gt; &quot;Canada&quot;, &quot;US&quot; -&gt; &quot;United States&quot;)
+</code></pre><h4 id="access-by-key">Access by key</h4><pre class="amm" data-exports="both"><code>val fr = countries(&quot;FR&quot;)
+</code></pre><pre class="example"><code>fr: String = &quot;France&quot;
+</code></pre><h4 id="add-keyvalue">Add key/value</h4><pre class="amm" data-exports="both"><code>val moreCountries = countries + (&quot;DE&quot; -&gt; &quot;Germany&quot;)
+</code></pre><pre class="example"><code>moreCountries: Map[String, String] = Map(&quot;FR&quot; -&gt; &quot;France&quot;, &quot;CA&quot; -&gt; &quot;Canada&quot;, &quot;US&quot; -&gt; &quot;United States&quot;, &quot;DE&quot; -&gt; &quot;Germany&quot;)
+</code></pre><h4 id="keys">Keys</h4><pre class="amm" data-exports="both"><code>val keys = countries.keys
+</code></pre><pre class="example"><code>keys: Iterable[String] = Set(&quot;FR&quot;, &quot;CA&quot;, &quot;US&quot;)
+</code></pre><h4 id="values-1">Values</h4><pre class="amm" data-exports="both"><code>val values = countries.values
+</code></pre><pre class="example"><code>values: Iterable[String] = Iterable(&quot;France&quot;, &quot;Canada&quot;, &quot;United States&quot;)
+</code></pre><h4 id="remove-element-by-key">Remove element by key</h4><pre class="amm" data-exports="both"><code>val lessCountries = countries - &quot;US&quot;
+</code></pre><pre class="example"><code>lessCountries: Map[String, String] = Map(&quot;FR&quot; -&gt; &quot;France&quot;, &quot;CA&quot; -&gt; &quot;Canada&quot;)
+</code></pre><h2 id="resources">Resources</h2><ul><li><a href="https://docs.scala-lang.org/tour/basics.html">https://docs.scala-lang.org/tour/basics.html</a></li><li><a href="https://docs.scala-lang.org/scala3/new-in-scala3.html">https://docs.scala-lang.org/scala3/new-in-scala3.html</a></li><li><a href="https://docs.scala-lang.org/cheatsheets/">https://docs.scala-lang.org/cheatsheets/</a></li></ul><h3 id="metals-scala-language-server">Metals (Scala Language Server)</h3><ul><li><a href="https://scalameta.org/metals/docs/editors/emacs/">https://scalameta.org/metals/docs/editors/emacs/</a></li><li><a href="https://ag91.github.io/blog/2020/10/16/my-emacs-setup-for-scala-development/">https://ag91.github.io/blog/2020/10/16/my-emacs-setup-for-scala-development/</a></li></ul><h3 id="functional-programming">Functional Programming</h3><h4 id="scalaz">Scalaz</h4><ul><li><a href="https://github.com/scalaz/scalaz">https://github.com/scalaz/scalaz</a></li></ul><h4 id="cats">Cats</h4><ul><li><a href="https://github.com/typelevel/cats">https://github.com/typelevel/cats</a></li><li><a href="https://underscore.io/books/scala-with-cats/">https://underscore.io/books/scala-with-cats/</a></li><li><a href="https://www.scalawithcats.com/">https://www.scalawithcats.com/</a></li></ul><h4 id="zio">Zio</h4><p><a href="https://zio.dev/">https://zio.dev/</a> Type-safe, composable asynchronous and concurrent programming for Scala</p><h4 id="the-red-book">"The red book"</h4><p><a href="https://www.manning.com/books/functional-programming-in-scala">https://www.manning.com/books/functional-programming-in-scala</a></p><h3 id="scala-school">Scala School</h3><p><a href="https://twitter.github.io/scala_school/">https://twitter.github.io/scala_school/</a></p></div></body></html>
