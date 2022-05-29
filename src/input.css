@@ -3,5 +3,19 @@
 @tailwind utilities;
 
 pre code {
-    margin-bottom: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.header-anchor {
+  margin-left: -1.5ch;
+  padding-right: 0.5ch;
+  visibility: hidden;
+}
+
+.header-anchor::before {
+  content: "#";
+}
+
+:is(h2:hover, h3:hover, h4:hover, h5:hover, h6:hover) .header-anchor {
+  visibility: visible;
 }
