@@ -112,7 +112,7 @@ for (root, dirs, files) in walkdir("src/notes")
                 read(
                     pipeline(
                         `echo $joined`,
-                        `pandoc --quiet --from=org --shift-heading-level-by=1`,
+                        `pandoc --quiet --from=org --shift-heading-level-by=1 --mathjax`,
                     ),
                     String,
                 ),
