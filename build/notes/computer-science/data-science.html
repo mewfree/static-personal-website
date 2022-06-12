@@ -1,0 +1,47 @@
+<!doctype html><html lang="en"><head><title>Data Science - Damien Gonot</title><link rel="stylesheet" href="/main.css"><link rel="stylesheet" href="/katex.min.css"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Homepage  Notes  Computer Science  Data Science
+
+Probabilities
+
+httpsprobability4datasciencecom
+
+Markov Chains
+
+httpsgithubcomczekstermarkov
+
+DataCSVJSON tools
+
+jq
+
+miller
+
+q
+
+httpharelbagithubioq Run SQL directly on CSV or TSV files
+
+xsv
+
+httpsgithubcomBurntSushixsv A fast CSV command line toolk..."><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body class="bg-white dark:bg-black"><header class="bg-indigo-600 dark:bg-black text-center text-white p-8"><div class="text-4xl font-bold mb-4">Damien Gonot</div><div class="text-xl flex space-x-8 justify-center"><a href="/" class="hover:underline">Home</a> <a href="/blog" class="hover:underline">Blog</a> <a href="/notes" class="hover:underline">Notes</a> <a href="/about" class="hover:underline">About</a> <button id="theme" class="text-2xl hover:cursor-pointer hover:dark" onclick="toggleTheme()">🌝</button></div><script src="/custom.js"></script><script src="/highlight.js"></script><script defer="defer" src="/katex.min.js"></script><script defer="defer" src="/katex-auto-render.min.js"></script></header><div class="prose prose-indigo dark:prose-invert dark:prose-a:text-indigo-400 max-w-3xl mx-auto p-8"><h1>Data Science</h1><p><a href="../../homepage">Homepage</a> / <a href="../../notes">Notes</a> / <a href="../computer-science">Computer Science</a> / Data Science</p><h2 id="probabilities">Probabilities</h2><p><a href="https://probability4datascience.com/">https://probability4datascience.com/</a></p><h3 id="markov-chains">Markov Chains</h3><p><a href="https://github.com/czekster/markov">https://github.com/czekster/markov</a></p><h2 id="datacsvjson-tools">Data/CSV/JSON tools</h2><h3 id="jq">jq</h3><h3 id="miller">miller</h3><h3 id="q">q</h3><p><a href="http://harelba.github.io/q/">http://harelba.github.io/q/</a> Run SQL directly on CSV or TSV files</p><h3 id="xsv">xsv</h3><p><a href="https://github.com/BurntSushi/xsv">https://github.com/BurntSushi/xsv</a> A fast CSV command line toolkit written in Rust</p><h3 id="visidata">visidata</h3><p><a href="https://www.visidata.org/">https://www.visidata.org/</a></p><ul><li><code class="verbatim">vd {filename}</code> open file</li><li><code class="verbatim">[</code> ascending sort</li><li><code class="verbatim">]</code> descending sort</li><li><code class="verbatim">F</code> to create a histogram for that column</li><li><code class="verbatim">=</code> (equal sign) to create a new Python column</li><li><code class="verbatim">J</code> move row down</li><li><code class="verbatim">K</code> move row up</li><li><code class="verbatim">H</code> move column left</li><li><code class="verbatim">L</code> move column right</li><li><code class="verbatim">#</code> treat column as integer</li><li><a href="https://jsvine.github.io/visidata-cheat-sheet/en/">https://jsvine.github.io/visidata-cheat-sheet/en/</a></li></ul><h3 id="sqlite-import-csv">sqlite import csv</h3><p><a href="https://www.sqlitetutorial.net/sqlite-import-csv/">https://www.sqlitetutorial.net/sqlite-import-csv/</a></p><h3 id="tv">tv</h3><p><a href="https://github.com/alexhallam/tv">https://github.com/alexhallam/tv</a> 📺(tv) Tidy Viewer is a cross-platform CLI csv pretty printer that uses column styling to maximize viewer enjoyment.</p><h3 id="jless">jless</h3><p><a href="https://pauljuliusmartinez.github.io/">https://pauljuliusmartinez.github.io/</a> new command-line JSON viewer</p><h2 id="serving-data">Serving Data</h2><h3 id="roapi">ROAPI</h3><p><a href="https://roapi.github.io/docs/index.html">https://roapi.github.io/docs/index.html</a> ROAPI automatically spins up read-only APIs for static datasets without requiring you to write a single line of code.</p><h3 id="datasette">Datasette</h3><p><a href="https://datasette.io/">https://datasette.io/</a> Datasette is a tool for exploring and publishing data. It helps people take data of any shape or size, analyze and explore it, and publish it as an interactive website and accompanying API. <a href="https://docs.datasette.io/en/stable/ecosystem.html">https://docs.datasette.io/en/stable/ecosystem.html</a> <a href="https://architecturenotes.co/datasette-simon-willison/">https://architecturenotes.co/datasette-simon-willison/</a></p><h2 id="forecasting">Forecasting</h2><h3 id="prophet">Prophet</h3><p><a href="https://facebook.github.io/prophet/">https://facebook.github.io/prophet/</a> Prophet is a forecasting procedure implemented in R and Python. It is fast and provides completely automated forecasts that can be tuned by hand by data scientists and analysts.</p><h2 id="etl-elt">ETL / ELT</h2><h3 id="meltano">Meltano</h3><p><a href="https://meltano.com/">https://meltano.com/</a> ELT for the DataOps era Meltano is open source, self-hosted, CLI-first, debuggable, and extensible.</p><h3 id="airflow">Airflow</h3><p><a href="https://airflow.apache.org/">https://airflow.apache.org/</a></p><ul><li><code class="verbatim">airflow webserver -p {port_number}</code></li><li><code class="verbatim">airflow scheduler</code></li></ul><h3 id="dbt">dbt</h3><h2 id="storing-data">Storing Data</h2><h3 id="csv">CSV</h3><p>line by line file with columns separated by comma</p><h3 id="parquet">Parquet</h3><p>"columnar" file, way lighter than CSV, with data types for each column</p><h4 id="exploration">Exploration</h4><div class="sourceCode" id="cb1" data-results="verbatim" data-exports="both"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> pd.read_csv(<span class="st">&quot;~/tmp/train_routes.csv&quot;</span>)</span></code></pre></div><pre class="example"><code>           route_id     origin destination price
+0   paris-marseille      Paris   Marseille   $65
+1   marseille-paris  Marseille       Paris   $65
+2  montreal-toronto   Montreal     Toronto   $45
+3  toronto-montreal    Toronto    Montreal   $45
+4   montreal-ottawa   Montreal      Ottawa   $35
+5   ottawa-montreal     Ottawa    Montreal   $35
+6    ottawa-toronto     Ottawa     Toronto   $30
+7    toronto-ottawa    Toronto      Ottawa   $30
+</code></pre><div class="sourceCode" id="cb3" data-results="silent" data-exports="both"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;~/tmp/train_routes.csv&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df.to_parquet(<span class="st">&quot;~/tmp/train_routes.parquet&quot;</span>)</span></code></pre></div><div class="sourceCode" id="cb4" data-results="verbatim" data-exports="both"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> pd.read_parquet(<span class="st">&quot;~/tmp/train_routes.parquet&quot;</span>)</span></code></pre></div><pre class="example"><code>           route_id     origin destination price
+0   paris-marseille      Paris   Marseille   $65
+1   marseille-paris  Marseille       Paris   $65
+2  montreal-toronto   Montreal     Toronto   $45
+3  toronto-montreal    Toronto    Montreal   $45
+4   montreal-ottawa   Montreal      Ottawa   $35
+5   ottawa-montreal     Ottawa    Montreal   $35
+6    ottawa-toronto     Ottawa     Toronto   $30
+7    toronto-ottawa    Toronto      Ottawa   $30
+</code></pre><h2 id="visualizing-data">Visualizing Data</h2><h3 id="gnuplot">Gnuplot</h3><pre class="gnuplot" data-file="gnuplot-example.png" data-exports="both"><code>f(x) = sin(x)
+plot f(x)
+</code></pre><p><img src="gnuplot-example.png"></p><h2 id="resources">Resources</h2><p><a href="https://github.com/microsoft/Data-Science-For-Beginners">https://github.com/microsoft/Data-Science-For-Beginners</a></p></div></body></html>
