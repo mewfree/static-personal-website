@@ -16,17 +16,17 @@
 - ⌨️  HHKB Pro 2
 
 ** Software
-- ✍️ GNU Emacs (with evil-mode)
-- 🧠 org-mode (this page is built using org-mode!)
-- 🧑‍🌾 tmux
-- ⚙️ zsh
+- ✍️ [[file:/notes/computer-science/tools/text-editors/emacs][GNU Emacs]] (with evil-mode)
+- 🧠 [[file:/notes/computer-science/tools/text-editors/emacs/org-mode][org-mode]] (this page is built using [[file:/notes/computer-science/tools/text-editors/emacs/org-mode][org-mode]]!)
+- 🧑‍🌾 [[file:/notes/computer-science/tools/tmux][tmux]]
+- ⚙️ [[file:/notes/computer-science/tools/terminal#zsh][zsh]]
 
 ** Languages
-- 🧙 Elixir
-- 🍃 Clojure
-- 🐫 OCaml
-- 🔬 Julia
-- ‍👨‍🔬 Haskell
+- 🧙 [[file:/notes/computer-science/languages/elixir.org][Elixir]]
+- 🍃 [[file:/notes/computer-science/languages/clojure.org][Clojure]]
+- 🐫 [[file:/notes/computer-science/languages/ocaml.org][OCaml]]
+- 🔬 [[file:/notes/computer-science/languages/julia.org][Julia]]
+- ‍👨‍🔬 [[file:/notes/computer-science/languages/haskell.org][Haskell]]
 
 * Random
 #+begin_src julia-vterm :exports results
