@@ -10,7 +10,8 @@
 
 * Personal stack
 ** Hardware
-- 💻 MacBook Pro 14-inch
+- 🐧 ThinkPad X1 Nano
+- 💻 M1 MacBook Pro
 - 📱 OnePlus 9 Pro
 - 📖 iPad Mini
 - ⌨️  HHKB Pro 2
