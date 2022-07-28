@@ -23,6 +23,7 @@
 - ⚙️ [[file:/notes/computer-science/tools/terminal#zsh][zsh]]
 
 ** Languages
+- 💎 [[file:/notes/computer-science/languages/ruby.org][Ruby]]
 - 🧙 [[file:/notes/computer-science/languages/elixir.org][Elixir]]
 - 🍃 [[file:/notes/computer-science/languages/clojure.org][Clojure]]
 - 🐫 [[file:/notes/computer-science/languages/ocaml.org][OCaml]]
