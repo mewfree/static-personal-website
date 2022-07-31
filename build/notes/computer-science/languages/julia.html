@@ -71,7 +71,7 @@ string(&quot;My name is &quot;, name)
 </code></pre><pre class="example"><code>My name is Damien
 </code></pre><pre class="julia-vterm" data-exports="both"><code>&quot;1 + 1 = $(1 + 1)&quot;
 </code></pre><pre class="example"><code>1 + 1 = 2
-</code></pre><h3 id="split">Split</h3><div class="sourceCode" id="cb54" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">split</span>(<span class="st">&quot;x,y,z&quot;</span>, <span class="st">&quot;,&quot;</span>)</span></code></pre></div><pre class="example"><code>SubString{String}[&quot;x&quot;, &quot;y&quot;, &quot;z&quot;]
+</code></pre><h3 id="split">Split</h3><div class="sourceCode" id="cb54" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>split(<span class="st">&quot;x,y,z&quot;</span><span class="op">,</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div><pre class="example"><code>SubString{String}[&quot;x&quot;, &quot;y&quot;, &quot;z&quot;]
 </code></pre><h3 id="join">Join</h3><pre class="julia-vterm" data-exports="both"><code>join([&quot;x&quot;, &quot;y&quot;, &quot;z&quot;], &quot;\n&quot;)
 </code></pre><pre class="example"><code>x
 y
@@ -186,7 +186,7 @@ a2 = [3, 4]
 </code></pre><pre class="example"><code>[1, 2, 3, 4]
 </code></pre><h4 id="filter">Filter</h4><pre class="julia-vterm" data-exports="both"><code>filter(x -&gt; x &lt; 5, 1:10)
 </code></pre><pre class="example"><code>[1, 2, 3, 4]
-</code></pre><h4 id="list-comprehensions">List Comprehensions</h4><div class="sourceCode" id="cb146" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>[x<span class="op">^</span><span class="fl">2</span> for x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>]</span></code></pre></div><pre class="example"><code>[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre><h4 id="list-comprehensions">List Comprehensions</h4><div class="sourceCode" id="cb146" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>[x<span class="op">^</span><span class="fl">2</span> <span class="kw">for</span> x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>]</span></code></pre></div><pre class="example"><code>[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 </code></pre><h5 id="resources">Resources</h5><p><a href="https://blog.lojic.com/2020/12/26/comprehensions-in-julia.html">https://blog.lojic.com/2020/12/26/comprehensions-in-julia.html</a></p><h4 id="end">End</h4><pre class="julia-vterm" data-exports="both"><code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;][end]
 </code></pre><pre class="example"><code>c
 </code></pre><h4 id="sort">Sort</h4><pre class="julia-vterm" data-exports="both"><code>[3, 2, 1] |&gt; sort
@@ -221,14 +221,14 @@ matrix&#39;
 </code></pre><pre class="example"><code>[2, 3, 4, 5, 6, 7, 8, 9, 1]
 </code></pre><h3 id="sets">Sets</h3><p>No duplicate elements</p><pre class="julia-vterm" data-exports="both"><code>Set([1, 2, 3, 3])
 </code></pre><pre class="example"><code>Set([2, 3, 1])
-</code></pre><h3 id="dict">Dict</h3><div class="sourceCode" id="cb176" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a>dict <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">&quot;key&quot;</span> <span class="op">=&gt;</span> <span class="st">&quot;value&quot;</span>)</span>
+</code></pre><h3 id="dict">Dict</h3><div class="sourceCode" id="cb176" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a>dict <span class="op">=</span> <span class="dt">Dict</span>(<span class="st">&quot;key&quot;</span> <span class="op">=&gt;</span> <span class="st">&quot;value&quot;</span>)</span>
 <span id="cb176-2"><a href="#cb176-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb176-3"><a href="#cb176-3" aria-hidden="true" tabindex="-1"></a>dict[<span class="st">&quot;key&quot;</span>]</span></code></pre></div><pre class="example"><code>value
-</code></pre><h2 id="functions">Functions</h2><p><a href="https://docs.julialang.org/en/v1/manual/functions/">https://docs.julialang.org/en/v1/manual/functions/</a></p><p>Basic syntax:</p><div class="sourceCode" id="cb178" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">f</span>(x, y)</span>
+</code></pre><h2 id="functions">Functions</h2><p><a href="https://docs.julialang.org/en/v1/manual/functions/">https://docs.julialang.org/en/v1/manual/functions/</a></p><p>Basic syntax:</p><div class="sourceCode" id="cb178" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> f(x<span class="op">,</span> y)</span>
 <span id="cb178-2"><a href="#cb178-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">+</span> y</span>
 <span id="cb178-3"><a href="#cb178-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
 <span id="cb178-4"><a href="#cb178-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-5"><a href="#cb178-5" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="fl">2</span>, <span class="fl">3</span>)</span></code></pre></div><pre class="example"><code>5
+<span id="cb178-5"><a href="#cb178-5" aria-hidden="true" tabindex="-1"></a>f(<span class="fl">2</span><span class="op">,</span> <span class="fl">3</span>)</span></code></pre></div><pre class="example"><code>5
 </code></pre><p>More terse syntax:</p><pre class="julia-vterm" data-exports="both"><code>f(x, y) = x + y
 
 f(2, 3)
@@ -251,23 +251,23 @@ f.([1, 2, 3])
 </code></pre><pre class="example"><code>[2, 4, 6]
 </code></pre><p>Even works on the <code class="verbatim">|&gt;</code> pipe operator!</p><pre class="julia-vterm" data-exports="both"><code>[&quot;list&quot;, &quot;of&quot;, &quot;string&quot;] .|&gt; [uppercase, reverse, length]
 </code></pre><pre class="example"><code>Any[&quot;LIST&quot;, &quot;fo&quot;, 6]
-</code></pre><h3 id="other">Other</h3><h4 id="do-block-syntax-for-function-arguments"><a href="https://docs.julialang.org/en/v1/manual/functions/#Do-Block-Syntax-for-Function-Arguments">Do-Block Syntax for Function Arguments</a></h4><p>Passing functions as arguments to other functions is a powerful technique, but the syntax for it is not always convenient. Such calls are especially awkward to write when the function argument requires multiple lines. As an example, consider calling =[map](<a href="https://docs.julialang.org/en/v1/base/collections/#Base.map)=">https://docs.julialang.org/en/v1/base/collections/#Base.map)=</a> on a function with several cases:</p><div class="sourceCode" id="cb194" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(x<span class="op">-&gt;</span><span class="cf">if</span> x <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">iseven</span>(x)</span>
-<span id="cb194-2"><a href="#cb194-2" aria-hidden="true" tabindex="-1"></a>           <span class="cf">return</span> <span class="fl">0</span></span>
-<span id="cb194-3"><a href="#cb194-3" aria-hidden="true" tabindex="-1"></a>       <span class="cf">elseif</span> x <span class="op">==</span> <span class="fl">0</span></span>
-<span id="cb194-4"><a href="#cb194-4" aria-hidden="true" tabindex="-1"></a>           <span class="cf">return</span> <span class="fl">1</span></span>
-<span id="cb194-5"><a href="#cb194-5" aria-hidden="true" tabindex="-1"></a>       <span class="cf">else</span></span>
-<span id="cb194-6"><a href="#cb194-6" aria-hidden="true" tabindex="-1"></a>           <span class="cf">return</span> x</span>
-<span id="cb194-7"><a href="#cb194-7" aria-hidden="true" tabindex="-1"></a>       <span class="cf">end</span>,</span>
-<span id="cb194-8"><a href="#cb194-8" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>])</span></code></pre></div><pre class="example"><code>[0, -1, 1, 1, 2]
-</code></pre><p>Julia provides a reserved word =do= for rewriting this code more clearly:</p><div class="sourceCode" id="cb196" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>([<span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>]) <span class="cf">do</span> x</span>
-<span id="cb196-2"><a href="#cb196-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">iseven</span>(x)</span>
-<span id="cb196-3"><a href="#cb196-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0</span></span>
-<span id="cb196-4"><a href="#cb196-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elseif</span> x <span class="op">==</span> <span class="fl">0</span></span>
-<span id="cb196-5"><a href="#cb196-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">1</span></span>
-<span id="cb196-6"><a href="#cb196-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb196-7"><a href="#cb196-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
-<span id="cb196-8"><a href="#cb196-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb196-9"><a href="#cb196-9" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div><pre class="example"><code>[0, -1, 1, 1, 2]
+</code></pre><h3 id="other">Other</h3><h4 id="do-block-syntax-for-function-arguments"><a href="https://docs.julialang.org/en/v1/manual/functions/#Do-Block-Syntax-for-Function-Arguments">Do-Block Syntax for Function Arguments</a></h4><p>Passing functions as arguments to other functions is a powerful technique, but the syntax for it is not always convenient. Such calls are especially awkward to write when the function argument requires multiple lines. As an example, consider calling =[map](<a href="https://docs.julialang.org/en/v1/base/collections/#Base.map)=">https://docs.julialang.org/en/v1/base/collections/#Base.map)=</a> on a function with several cases:</p><div class="sourceCode" id="cb194" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a>map(x<span class="op">-&gt;</span><span class="kw">if</span> x <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> iseven(x)</span>
+<span id="cb194-2"><a href="#cb194-2" aria-hidden="true" tabindex="-1"></a>           <span class="kw">return</span> <span class="fl">0</span></span>
+<span id="cb194-3"><a href="#cb194-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">elseif</span> x <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb194-4"><a href="#cb194-4" aria-hidden="true" tabindex="-1"></a>           <span class="kw">return</span> <span class="fl">1</span></span>
+<span id="cb194-5"><a href="#cb194-5" aria-hidden="true" tabindex="-1"></a>       <span class="kw">else</span></span>
+<span id="cb194-6"><a href="#cb194-6" aria-hidden="true" tabindex="-1"></a>           <span class="kw">return</span> x</span>
+<span id="cb194-7"><a href="#cb194-7" aria-hidden="true" tabindex="-1"></a>       <span class="kw">end</span><span class="op">,</span></span>
+<span id="cb194-8"><a href="#cb194-8" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="fl">2</span><span class="op">,</span> <span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">2</span>])</span></code></pre></div><pre class="example"><code>[0, -1, 1, 1, 2]
+</code></pre><p>Julia provides a reserved word =do= for rewriting this code more clearly:</p><div class="sourceCode" id="cb196" data-exports="both"><pre class="sourceCode julia"><code class="sourceCode julia"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a>map([<span class="op">-</span><span class="fl">2</span><span class="op">,</span> <span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">2</span>]) <span class="kw">do</span> x</span>
+<span id="cb196-2"><a href="#cb196-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> x <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> iseven(x)</span>
+<span id="cb196-3"><a href="#cb196-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="fl">0</span></span>
+<span id="cb196-4"><a href="#cb196-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">elseif</span> x <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb196-5"><a href="#cb196-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="fl">1</span></span>
+<span id="cb196-6"><a href="#cb196-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span></span>
+<span id="cb196-7"><a href="#cb196-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> x</span>
+<span id="cb196-8"><a href="#cb196-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb196-9"><a href="#cb196-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><pre class="example"><code>[0, -1, 1, 1, 2]
 </code></pre><p><a href="https://docs.julialang.org/en/v1/manual/functions/#Function-composition-and-piping">https://docs.julialang.org/en/v1/manual/functions/#Function-composition-and-piping</a></p><h2 id="control-flow">Control Flow</h2><h3 id="if-statement">If statement</h3><pre class="julia-vterm" data-exports="both"><code>if 1 &gt; 2
     &quot;1 is larger than 2&quot;
 else
